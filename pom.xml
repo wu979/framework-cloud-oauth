@@ -13,6 +13,13 @@
         <common.framework.cloud.starter.version>1.0.0</common.framework.cloud.starter.version>
     </properties>
 
+    <modules>
+        <module>framework-cloud-oauth-api</module>
+        <module>framework-cloud-oauth-common</module>
+        <module>framework-cloud-oauth-domain</module>
+        <module>framework-cloud-oauth-infrastructure</module>
+    </modules>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
