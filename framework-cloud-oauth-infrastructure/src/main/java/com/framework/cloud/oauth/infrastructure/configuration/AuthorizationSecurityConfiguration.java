@@ -1,6 +1,7 @@
 package com.framework.cloud.oauth.infrastructure.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.framework.cloud.cache.cache.RedisCache;
 import com.framework.cloud.oauth.domain.handler.AuthorizationDeniedHandler;
 import com.framework.cloud.oauth.domain.handler.AuthorizationPointHandler;
 import com.framework.cloud.oauth.domain.logout.AuthorizationLogoutHandler;
@@ -36,6 +37,7 @@ public class AuthorizationSecurityConfiguration {
 
     private final OauthProperties oauthProperties;
     private final ObjectMapper objectMapper;
+    private final RedisCache redisCache;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -51,14 +53,13 @@ public class AuthorizationSecurityConfiguration {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().requestMatchers(CorsUtils::isPreFlightRequest).permitAll().and()
                 .authorizeRequests().requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll().and()
+                .authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll().and()
                 .authorizeRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.OPTIONS).permitAll()
                         .antMatchers(oauthProperties.getUrl().getIgnoringUrl().toArray(new String[0])).permitAll()
-                        //其他请求需要认证
                         .anyRequest().authenticated()
                 )
                 .logout().logoutUrl(oauthProperties.getUrl().getLogoutUrl()).and()
-                .logout().addLogoutHandler(new AuthorizationLogoutHandler()).and()
+                .logout().addLogoutHandler(new AuthorizationLogoutHandler(redisCache)).and()
                 .logout().logoutSuccessHandler(new AuthorizationLogoutSuccessHandler(objectMapper)).and()
                 .exceptionHandling().authenticationEntryPoint(new AuthorizationPointHandler(objectMapper)).and()
                 .exceptionHandling().accessDeniedHandler(new AuthorizationDeniedHandler(objectMapper)).and()
