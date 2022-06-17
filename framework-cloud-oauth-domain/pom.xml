@@ -14,4 +14,33 @@
     <name>framework-cloud-oauth-domain</name>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.framework.cloud</groupId>
+            <artifactId>framework-cloud-oauth-common</artifactId>
+            <version>${version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.framework.cloud</groupId>
+            <artifactId>cache-framework-cloud-starter</artifactId>
+            <version>${cache.framework.cloud.starter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
+        </dependency>
+    </dependencies>
 </project>
