@@ -1,9 +1,9 @@
-package com.framework.cloud.oauth.domain.logout;
+package com.framework.cloud.oauth.infrastructure.logout;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.framework.cloud.common.result.R;
 import com.framework.cloud.common.result.Result;
-import com.framework.cloud.oauth.domain.response.ResponseUtil;
+import com.framework.cloud.oauth.infrastructure.response.ResponseUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;

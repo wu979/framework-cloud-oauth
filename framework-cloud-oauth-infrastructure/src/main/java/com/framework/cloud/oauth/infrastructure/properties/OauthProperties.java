@@ -1,4 +1,4 @@
-package com.framework.cloud.oauth.domain.properties;
+package com.framework.cloud.oauth.infrastructure.properties;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

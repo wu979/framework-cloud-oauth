@@ -1,12 +1,12 @@
-package com.framework.cloud.oauth.infrastructure.configuration;
+package com.framework.cloud.oauth.api.application.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.framework.cloud.cache.cache.RedisCache;
-import com.framework.cloud.oauth.domain.handler.AuthorizationDeniedHandler;
-import com.framework.cloud.oauth.domain.handler.AuthorizationPointHandler;
-import com.framework.cloud.oauth.domain.logout.AuthorizationLogoutHandler;
-import com.framework.cloud.oauth.domain.logout.AuthorizationLogoutSuccessHandler;
-import com.framework.cloud.oauth.domain.properties.OauthProperties;
+import com.framework.cloud.oauth.infrastructure.handler.AuthorizationDeniedHandler;
+import com.framework.cloud.oauth.infrastructure.handler.AuthorizationPointHandler;
+import com.framework.cloud.oauth.infrastructure.logout.AuthorizationLogoutHandler;
+import com.framework.cloud.oauth.infrastructure.logout.AuthorizationLogoutSuccessHandler;
+import com.framework.cloud.oauth.infrastructure.properties.OauthProperties;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

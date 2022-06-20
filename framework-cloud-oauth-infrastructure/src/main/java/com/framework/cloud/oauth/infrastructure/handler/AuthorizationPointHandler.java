@@ -1,7 +1,7 @@
-package com.framework.cloud.oauth.domain.handler;
+package com.framework.cloud.oauth.infrastructure.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.framework.cloud.oauth.domain.response.ResponseUtil;
+import com.framework.cloud.oauth.infrastructure.response.ResponseUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

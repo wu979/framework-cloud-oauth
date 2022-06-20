@@ -21,5 +21,9 @@
             <version>${common.framework.cloud.starter.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -3,11 +3,11 @@ package com.framework.cloud.oauth.common.enums;
 import lombok.Getter;
 
 /**
- * 授权模式
+ * 授权模式类型
  *
  * @author wusiwei
  */
-public enum GrantEnum {
+public enum GrantType {
 
     /** 授权码模式 */
     AUTHORIZATION_CODE("authorization_code"),
@@ -32,7 +32,7 @@ public enum GrantEnum {
     @Getter
     private final String grant;
 
-    GrantEnum(String grant) {
+    GrantType(String grant) {
         this.grant = grant;
     }
 }

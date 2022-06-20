@@ -1,4 +1,4 @@
-package com.framework.cloud.oauth.domain.response;
+package com.framework.cloud.oauth.infrastructure.response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.framework.cloud.common.result.R;

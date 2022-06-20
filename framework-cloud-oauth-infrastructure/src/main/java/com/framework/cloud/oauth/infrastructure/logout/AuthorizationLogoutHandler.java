@@ -1,4 +1,4 @@
-package com.framework.cloud.oauth.domain.logout;
+package com.framework.cloud.oauth.infrastructure.logout;
 
 import com.framework.cloud.cache.cache.RedisCache;
 import com.framework.cloud.common.constant.HeaderConstant;

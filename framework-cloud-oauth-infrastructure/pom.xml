@@ -17,21 +17,6 @@
     <dependencies>
         <dependency>
             <groupId>com.framework.cloud</groupId>
-            <artifactId>feign-framework-cloud-starter</artifactId>
-            <version>${feign.framework.cloud.starter.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.framework.cloud</groupId>
-            <artifactId>swagger-framework-cloud-starter</artifactId>
-            <version>${swagger.framework.cloud.starter.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.framework.cloud</groupId>
-            <artifactId>core-framework-cloud-starter</artifactId>
-            <version>${core.framework.cloud.starter.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.framework.cloud</groupId>
             <artifactId>framework-cloud-oauth-domain</artifactId>
             <version>${version}</version>
         </dependency>
