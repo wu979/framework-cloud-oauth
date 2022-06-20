@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>framework-cloud-oauth-domain</artifactId>
-    <version>1.0.0</version>
     <name>framework-cloud-oauth-domain</name>
     <packaging>jar</packaging>
 

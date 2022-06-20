@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>framework-cloud-oauth-common</artifactId>
-    <version>1.0.0</version>
     <name>framework-cloud-oauth-common</name>
     <packaging>jar</packaging>
 
