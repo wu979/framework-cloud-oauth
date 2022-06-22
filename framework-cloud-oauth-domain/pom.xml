@@ -41,6 +41,16 @@
             <version>${cache.framework.cloud.starter.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.framework.cloud</groupId>
+            <artifactId>framework-cloud-platform-common</artifactId>
+            <version>${framework.cloud.platform.common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.framework.cloud</groupId>
+            <artifactId>framework-cloud-user-common</artifactId>
+            <version>${framework.cloud.user.common.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>

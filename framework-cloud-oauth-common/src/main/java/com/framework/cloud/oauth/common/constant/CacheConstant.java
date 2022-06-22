@@ -6,7 +6,6 @@ package com.framework.cloud.oauth.common.constant;
  * @author wusiwei
  */
 public class CacheConstant {
-
     /**
      * 授权令牌 (缓存key)
      */
