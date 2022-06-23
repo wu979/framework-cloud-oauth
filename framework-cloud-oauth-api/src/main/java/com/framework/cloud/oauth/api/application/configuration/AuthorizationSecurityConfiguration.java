@@ -2,11 +2,6 @@ package com.framework.cloud.oauth.api.application.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.framework.cloud.cache.cache.RedisCache;
-import com.framework.cloud.oauth.common.dto.authentication.AuthorizationDTO;
-import com.framework.cloud.oauth.common.dto.token.AccessTokenDTO;
-import com.framework.cloud.oauth.common.model.AbstractAccessTokenModel;
-import com.framework.cloud.oauth.common.model.AbstractAuthenticationModel;
-import com.framework.cloud.oauth.domain.AuthenticationService;
 import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
 import com.framework.cloud.oauth.domain.client.impl.AuthorizationTenantServiceImpl;
 import com.framework.cloud.oauth.domain.properties.OauthProperties;
@@ -35,7 +30,6 @@ import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.annotation.Resource;
-import java.util.Map;
 
 /**
  *
@@ -55,10 +49,6 @@ public class AuthorizationSecurityConfiguration {
     private RedisCache redisCache;
     @Resource
     private AuthenticationConfiguration authenticationConfiguration;
-    @Resource
-    private Map<String, AuthenticationService<AbstractAuthenticationModel, AuthorizationDTO>> authenticationServiceMap;
-    @Resource
-    private Map<String, AuthenticationService<AbstractAccessTokenModel, AccessTokenDTO>> authenticationTokenServiceMap;
 
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
@@ -93,7 +83,6 @@ public class AuthorizationSecurityConfiguration {
     public AuthenticationCodeFilter authenticationCodeFilter() throws Exception {
         AuthenticationCodeFilter filter = new AuthenticationCodeFilter("/oauth/auth");
         filter.setObjectMapper(objectMapper);
-        filter.setAuthenticationServiceMap(authenticationServiceMap);
         filter.setAuthenticationManager(authenticationManager());
         filter.setAuthenticationSuccessHandler(new AuthorizationCodeSuccessHandler(objectMapper));
         filter.setAuthenticationFailureHandler(new AuthorizationFailureHandler(objectMapper));
@@ -104,7 +93,6 @@ public class AuthorizationSecurityConfiguration {
     public AuthenticationTokenFilter authenticationTokenFilter() throws Exception {
         AuthenticationTokenFilter filter = new AuthenticationTokenFilter("/oauth/token");
         filter.setObjectMapper(objectMapper);
-        filter.setAuthenticationServiceMap(authenticationTokenServiceMap);
         filter.setAuthenticationManager(authenticationManager());
         filter.setAuthenticationSuccessHandler(new AuthorizationTokenSuccessHandler(objectMapper));
         filter.setAuthenticationFailureHandler(new AuthorizationFailureHandler(objectMapper));

@@ -5,6 +5,7 @@ package com.framework.cloud.oauth.common.constant;
  */
 public class OauthConstant {
 
+    public static final String APPLICATION_JSON = "application/json;charset=UTF-8";
     /**
      * 授权码长度
      */
