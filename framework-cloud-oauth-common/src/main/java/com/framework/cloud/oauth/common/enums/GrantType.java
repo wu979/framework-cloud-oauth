@@ -1,10 +1,10 @@
 package com.framework.cloud.oauth.common.enums;
 
 import com.framework.cloud.oauth.common.dto.AbstractAuthorizationDTO;
-import com.framework.cloud.oauth.common.dto.authentication.AppModel;
-import com.framework.cloud.oauth.common.dto.authentication.EmailModel;
-import com.framework.cloud.oauth.common.dto.authentication.PhoneModel;
-import com.framework.cloud.oauth.common.dto.authentication.UsernameModel;
+import com.framework.cloud.oauth.common.dto.authentication.AppDTO;
+import com.framework.cloud.oauth.common.dto.authentication.EmailDTO;
+import com.framework.cloud.oauth.common.dto.authentication.PhoneDTO;
+import com.framework.cloud.oauth.common.dto.authentication.UsernameDTO;
 import com.framework.cloud.oauth.common.dto.token.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,13 +20,13 @@ import org.apache.commons.lang3.StringUtils;
 public enum GrantType {
 
     /** 账号密码 */
-    USERNAME(UsernameModel.class),
+    USERNAME(UsernameDTO.class),
     /** 手机验证码 */
-    PHONE(PhoneModel.class),
+    PHONE(PhoneDTO.class),
     /** 邮箱验证码 */
-    EMAIL(EmailModel.class),
+    EMAIL(EmailDTO.class),
     /** 三方软件 */
-    APP(AppModel.class),
+    APP(AppDTO.class),
 
     /** 授权码 */
     AUTHORIZATION_CODE(CodeDTO.class),

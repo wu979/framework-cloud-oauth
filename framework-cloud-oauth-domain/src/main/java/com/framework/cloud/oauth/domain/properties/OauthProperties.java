@@ -1,4 +1,4 @@
-package com.framework.cloud.oauth.infrastructure.properties;
+package com.framework.cloud.oauth.domain.properties;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -15,6 +15,9 @@ import java.util.List;
 @Data
 @ConfigurationProperties(prefix = "framework.oauth2")
 public class OauthProperties {
+
+    @ApiModelProperty(value = "单租户最大认证次数")
+    private Integer maxCount;
 
     private Url url;
 

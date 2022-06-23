@@ -13,4 +13,8 @@ public class OauthConstant {
      * 令牌类型
      */
     public static final String GRANT_TYPE = "grant_type";
+    /**
+     * 返回类型
+     */
+    public static final String RESPONSE_TOKEN = "token";
 }

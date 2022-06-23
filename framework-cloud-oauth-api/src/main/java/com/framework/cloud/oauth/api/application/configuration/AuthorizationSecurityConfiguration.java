@@ -2,12 +2,21 @@ package com.framework.cloud.oauth.api.application.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.framework.cloud.cache.cache.RedisCache;
-import com.framework.cloud.oauth.infrastructure.handler.AuthorizationDeniedHandler;
-import com.framework.cloud.oauth.infrastructure.handler.AuthorizationPointHandler;
+import com.framework.cloud.oauth.common.dto.authentication.AuthorizationDTO;
+import com.framework.cloud.oauth.common.dto.token.AccessTokenDTO;
+import com.framework.cloud.oauth.common.model.AbstractAccessTokenModel;
+import com.framework.cloud.oauth.common.model.AbstractAuthenticationModel;
+import com.framework.cloud.oauth.domain.AuthenticationService;
+import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
+import com.framework.cloud.oauth.domain.client.impl.AuthorizationTenantServiceImpl;
+import com.framework.cloud.oauth.domain.properties.OauthProperties;
+import com.framework.cloud.oauth.domain.user.AuthorizationUserDetailsService;
+import com.framework.cloud.oauth.domain.user.impl.UsernameUserDetailServiceImpl;
+import com.framework.cloud.oauth.infrastructure.filter.AuthenticationCodeFilter;
+import com.framework.cloud.oauth.infrastructure.filter.AuthenticationTokenFilter;
+import com.framework.cloud.oauth.infrastructure.handler.*;
 import com.framework.cloud.oauth.infrastructure.logout.AuthorizationLogoutHandler;
 import com.framework.cloud.oauth.infrastructure.logout.AuthorizationLogoutSuccessHandler;
-import com.framework.cloud.oauth.infrastructure.properties.OauthProperties;
-import lombok.AllArgsConstructor;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -19,28 +28,40 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  *
  *
  * @author wusiwei
  */
-@AllArgsConstructor
 @EnableWebSecurity
 @EnableConfigurationProperties(OauthProperties.class)
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class AuthorizationSecurityConfiguration {
 
-    private final OauthProperties oauthProperties;
-    private final ObjectMapper objectMapper;
-    private final RedisCache redisCache;
+    @Resource
+    private OauthProperties oauthProperties;
+    @Resource
+    private ObjectMapper objectMapper;
+    @Resource
+    private RedisCache redisCache;
+    @Resource
+    private AuthenticationConfiguration authenticationConfiguration;
+    @Resource
+    private Map<String, AuthenticationService<AbstractAuthenticationModel, AuthorizationDTO>> authenticationServiceMap;
+    @Resource
+    private Map<String, AuthenticationService<AbstractAccessTokenModel, AccessTokenDTO>> authenticationTokenServiceMap;
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager() throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
@@ -54,6 +75,8 @@ public class AuthorizationSecurityConfiguration {
                 .authorizeRequests().requestMatchers(CorsUtils::isPreFlightRequest).permitAll().and()
                 .authorizeRequests().requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll().and()
                 .authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll().and()
+                .addFilterAt(authenticationCodeFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAt(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests(authorize -> authorize
                         .antMatchers(oauthProperties.getUrl().getIgnoringUrl().toArray(new String[0])).permitAll()
                         .anyRequest().authenticated()
@@ -66,6 +89,37 @@ public class AuthorizationSecurityConfiguration {
                 .build();
     }
 
+    @Bean
+    public AuthenticationCodeFilter authenticationCodeFilter() throws Exception {
+        AuthenticationCodeFilter filter = new AuthenticationCodeFilter("/oauth/auth");
+        filter.setObjectMapper(objectMapper);
+        filter.setAuthenticationServiceMap(authenticationServiceMap);
+        filter.setAuthenticationManager(authenticationManager());
+        filter.setAuthenticationSuccessHandler(new AuthorizationCodeSuccessHandler(objectMapper));
+        filter.setAuthenticationFailureHandler(new AuthorizationFailureHandler(objectMapper));
+        return filter;
+    }
+
+    @Bean
+    public AuthenticationTokenFilter authenticationTokenFilter() throws Exception {
+        AuthenticationTokenFilter filter = new AuthenticationTokenFilter("/oauth/token");
+        filter.setObjectMapper(objectMapper);
+        filter.setAuthenticationServiceMap(authenticationTokenServiceMap);
+        filter.setAuthenticationManager(authenticationManager());
+        filter.setAuthenticationSuccessHandler(new AuthorizationTokenSuccessHandler(objectMapper));
+        filter.setAuthenticationFailureHandler(new AuthorizationFailureHandler(objectMapper));
+        return filter;
+    }
+
+    @Bean
+    public AuthorizationUserDetailsService authorizationUserDetailsService() {
+        return new UsernameUserDetailServiceImpl();
+    }
+
+    @Bean
+    public AuthorizationTenantService authorizationTenantService() {
+        return new AuthorizationTenantServiceImpl();
+    }
 
     /** 跨源访问 */
     @Bean

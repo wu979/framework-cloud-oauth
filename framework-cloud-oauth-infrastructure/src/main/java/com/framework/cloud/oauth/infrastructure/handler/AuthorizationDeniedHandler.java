@@ -2,7 +2,7 @@ package com.framework.cloud.oauth.infrastructure.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.framework.cloud.oauth.infrastructure.response.ResponseUtil;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
@@ -15,7 +15,7 @@ import java.io.IOException;
  *
  * @author wusiwei
  */
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AuthorizationDeniedHandler implements AccessDeniedHandler, ResponseUtil<String> {
 
     private final ObjectMapper objectMapper;

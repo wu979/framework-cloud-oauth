@@ -4,22 +4,17 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 手机验证码
+ * 第三方
  *
  * @author wusiwei
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class PhoneModel extends AuthorizationDTO {
+public class AppDTO extends AuthorizationDTO {
     private static final long serialVersionUID = 2456289918882947253L;
 
     /**
-     * 手机号
+     * openID
      */
-    private String phone;
-
-    /**
-     * 验证码
-     */
-    private String code;
+    private String openId;
 }

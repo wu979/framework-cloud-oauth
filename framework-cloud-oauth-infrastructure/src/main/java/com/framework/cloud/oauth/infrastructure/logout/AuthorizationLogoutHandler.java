@@ -3,7 +3,7 @@ package com.framework.cloud.oauth.infrastructure.logout;
 import com.framework.cloud.cache.cache.RedisCache;
 import com.framework.cloud.common.constant.HeaderConstant;
 import com.framework.cloud.oauth.common.constant.CacheConstant;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author wusiwei
  */
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AuthorizationLogoutHandler implements LogoutHandler {
 
     private final RedisCache redisCache;
@@ -27,7 +27,7 @@ public class AuthorizationLogoutHandler implements LogoutHandler {
         if (StringUtils.isBlank(header)) {
             return;
         }
-        String accessKey = CacheConstant.ACCESS_TOKEN_KEY + header;
+        String accessKey = CacheConstant.ACCESS_TOKEN + header;
         // token
         String accessToken = redisCache.get(accessKey, String.class);
         if (StringUtils.isBlank(accessToken)) {
@@ -35,11 +35,11 @@ public class AuthorizationLogoutHandler implements LogoutHandler {
         }
         if (redisCache.delete(accessKey)) {
             // 访问令牌 绑定 刷新令牌的 缓存Key
-            String accessRefreshKey = CacheConstant.ACCESS_REFRESH_KEY + header;
+            String accessRefreshKey = CacheConstant.ACCESS_REFRESH + header;
             // refresh token
             String refreshToken = redisCache.get(accessRefreshKey, String.class);
             if (StringUtils.isNotBlank(refreshToken)) {
-                redisCache.delete(accessRefreshKey, CacheConstant.REFRESH_TOKEN_KEY + refreshToken);
+                redisCache.delete(accessRefreshKey, CacheConstant.REFRESH_TOKEN + refreshToken);
             }
         }
     }

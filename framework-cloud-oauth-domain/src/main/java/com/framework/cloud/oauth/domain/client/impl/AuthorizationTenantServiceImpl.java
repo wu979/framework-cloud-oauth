@@ -8,21 +8,24 @@ import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
 import com.framework.cloud.oauth.domain.convert.TenantConvert;
 import com.framework.cloud.oauth.domain.feign.PlatFormFeignService;
 import com.framework.cloud.platform.common.vo.TenantVO;
-import lombok.AllArgsConstructor;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
+
+import javax.annotation.Resource;
 
 /**
  * 认证租户 实现
  *
  * @author wusiwei
  */
-@AllArgsConstructor
 public class AuthorizationTenantServiceImpl implements AuthorizationTenantService {
 
-    private final TenantConvert tenantConvert;
-    private final PlatFormFeignService platFormFeignService;
+    @Resource
+    private TenantConvert tenantConvert;
+
+    @Resource
+    private PlatFormFeignService platFormFeignService;
 
     @Override
     public ClientDetails loadClientByClientId(String code) throws ClientRegistrationException {

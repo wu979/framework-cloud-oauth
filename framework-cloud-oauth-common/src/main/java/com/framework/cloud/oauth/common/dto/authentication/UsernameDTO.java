@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UsernameModel extends AuthorizationDTO {
+public class UsernameDTO extends AuthorizationDTO {
     private static final long serialVersionUID = 2456289918882947253L;
 
     /**

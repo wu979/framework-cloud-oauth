@@ -1,14 +1,17 @@
-package com.framework.cloud.oauth.domain.token;
+package com.framework.cloud.oauth.domain.support.token;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.framework.cloud.cache.cache.RedisCache;
 import com.framework.cloud.common.utils.MD5Util;
 import com.framework.cloud.common.utils.StringUtil;
 import com.framework.cloud.oauth.common.base.BaseTenant;
+import com.framework.cloud.oauth.common.constant.CacheConstant;
 import com.framework.cloud.oauth.common.dto.AbstractAuthorizationDTO;
 import com.framework.cloud.oauth.common.dto.token.AccessTokenDTO;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.domain.AuthenticationService;
 import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
+import com.framework.cloud.oauth.domain.properties.OauthProperties;
 import com.framework.cloud.oauth.domain.utils.MsgUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -25,9 +28,10 @@ public abstract class AbstractAuthenticationTokenService<R extends AbstractAuthe
 
     @Resource
     private RedisCache redisCache;
-
     @Resource
     private AuthorizationTenantService authorizationTenantService;
+    @Resource
+    private OauthProperties oauthProperties;
 
     @Override
     public R authentication(T param) {
@@ -47,13 +51,13 @@ public abstract class AbstractAuthenticationTokenService<R extends AbstractAuthe
         if (!baseTenant.getAuthorizedGrantTypes().contains(authorization.getGrantType())) {
             throw new AuthenticationServiceException(MsgUtil.format(OauthMsg.GRANT_TYPE, authorization.getGrantType()));
         }
+        boolean check = checkCount(baseTenant.getId());
+        if (!check) {
+            throw new AuthenticationServiceException(OauthMsg.MAX_COUNT.getMsg());
+        }
         String errorMsg = validParam(baseTenant, param);
         if (StringUtil.isNotEmpty(errorMsg)) {
             throw new AuthenticationServiceException(errorMsg);
-        }
-        boolean check = checkClientCount(baseTenant);
-        if (!check) {
-            throw new AuthenticationServiceException(OauthMsg.MAX_COUNT.getMsg());
         }
         return authenticationToken(baseTenant, param);
     }
@@ -64,12 +68,18 @@ public abstract class AbstractAuthenticationTokenService<R extends AbstractAuthe
     protected abstract String validParam(BaseTenant baseTenant, T param);
 
     /**
-     * 检查租户认证次数
-     */
-    protected abstract boolean checkClientCount(BaseTenant baseTenant);
-
-    /**
      * 构建过滤链
      */
     protected abstract R authenticationToken(BaseTenant baseTenant, T param);
+
+    /**
+     * 公共 检查租户认证 次数
+     *
+     * @param tenantId 租户ID
+     */
+    protected final boolean checkCount(Long tenantId) {
+        String key = CacheConstant.TENANT_COUNT + tenantId;
+        Integer count = redisCache.get(key, Integer.class);
+        return ObjectUtil.isNull(count) || count < oauthProperties.getMaxCount();
+    }
 }

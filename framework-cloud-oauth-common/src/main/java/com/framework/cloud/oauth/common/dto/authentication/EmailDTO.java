@@ -4,17 +4,22 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 第三方
+ * 邮箱验证码
  *
  * @author wusiwei
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AppModel extends AuthorizationDTO {
+public class EmailDTO extends AuthorizationDTO {
     private static final long serialVersionUID = 2456289918882947253L;
 
     /**
-     * openID
+     * 邮箱
      */
-    private String openId;
+    private String email;
+
+    /**
+     * 验证码
+     */
+    private String code;
 }

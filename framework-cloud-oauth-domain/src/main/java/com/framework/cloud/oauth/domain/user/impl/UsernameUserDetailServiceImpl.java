@@ -11,12 +11,12 @@ import com.framework.cloud.oauth.domain.user.AuthorizationUserDetailsService;
 import com.framework.cloud.user.common.enums.RoleType;
 import com.framework.cloud.user.common.enums.UserStatus;
 import com.framework.cloud.user.common.vo.UserIdentifierVO;
-import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,11 +24,13 @@ import java.util.stream.Collectors;
 /**
  * @author wusiwei
  */
-@AllArgsConstructor
 public class UsernameUserDetailServiceImpl implements AuthorizationUserDetailsService {
 
-    private final UserFeignService userFeignService;
-    private final UserConvert userConvert;
+    @Resource
+    private UserFeignService userFeignService;
+
+    @Resource
+    private UserConvert userConvert;
 
     @Override
     public UserDetails loadUserByUsername(String username, Long tenantId) throws UsernameNotFoundException {
