@@ -1,13 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.framework.cloud.oauth.api.application.configuration.AuthorizationSecurityConfiguration,\
-com.framework.cloud.oauth.domain.support.authorization.impl.AuthenticationAppServiceImpl,\
-com.framework.cloud.oauth.domain.support.authorization.impl.AuthenticationEmailServiceImpl,\
-com.framework.cloud.oauth.domain.support.authorization.impl.AuthenticationPhoneServiceImpl,\
-com.framework.cloud.oauth.domain.support.authorization.impl.AuthenticationUsernameServiceImpl,\
-com.framework.cloud.oauth.domain.support.token.impl.AuthenticationCodeServiceImpl,\
-com.framework.cloud.oauth.domain.support.token.impl.AuthenticationCredentialsServiceImpl,\
-com.framework.cloud.oauth.domain.support.token.impl.AuthenticationImplicitServiceImpl,\
-com.framework.cloud.oauth.domain.support.token.impl.AuthenticationOpenIdServiceImpl,\
-com.framework.cloud.oauth.domain.support.token.impl.AuthenticationPasswordServiceImpl,\
-com.framework.cloud.oauth.domain.support.token.impl.AuthenticationRefreshServiceImpl
-
+com.framework.cloud.oauth.api.application.AuthorizationAutoConfiguration

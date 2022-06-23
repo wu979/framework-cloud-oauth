@@ -13,19 +13,19 @@ import java.util.Collection;
 public class PhoneAuthenticationModel extends AbstractAuthenticationModel {
     private static final long serialVersionUID = -7936028866461437776L;
 
-    public PhoneAuthenticationModel(Object principal, Object credentials, String appKey) {
-        super(principal, credentials, appKey);
+    public PhoneAuthenticationModel(Object principal, Object credentials, Long tenantId, String appKey) {
+        super(principal, credentials, tenantId, appKey);
     }
 
     public PhoneAuthenticationModel(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities) {
         super(principal, credentials, authorities);
     }
 
-    public PhoneAuthenticationModel(Object principal, Object credentials, String appKey, String redirectUri, String state) {
-        super(principal, credentials, appKey, redirectUri, state);
+    public PhoneAuthenticationModel(Object principal, Object credentials, Long tenantId, String appKey, String redirectUri, String state) {
+        super(principal, credentials, tenantId, appKey, redirectUri, state);
     }
 
-    public PhoneAuthenticationModel(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, String appKey, String redirectUri, String state) {
-        super(principal, credentials, authorities, appKey, redirectUri, state);
+    public PhoneAuthenticationModel(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, Long tenantId, String appKey, String redirectUri, String state) {
+        super(principal, credentials, authorities, tenantId, appKey, redirectUri, state);
     }
 }

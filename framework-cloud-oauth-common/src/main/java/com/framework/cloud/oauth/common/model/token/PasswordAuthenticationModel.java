@@ -13,11 +13,11 @@ import java.util.Collection;
 public class PasswordAuthenticationModel extends AbstractAccessTokenModel {
     private static final long serialVersionUID = 2128883647329835369L;
 
-    public PasswordAuthenticationModel(Object principal, Object credentials, String clientId) {
-        super(principal, credentials, clientId);
+    public PasswordAuthenticationModel(Object principal, Object credentials, Long tenantId, String clientId) {
+        super(principal, credentials, tenantId, clientId);
     }
 
-    public PasswordAuthenticationModel(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, String clientId) {
-        super(principal, credentials, authorities, clientId);
+    public PasswordAuthenticationModel(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, Long tenantId, String clientId) {
+        super(principal, credentials, authorities, tenantId, clientId);
     }
 }

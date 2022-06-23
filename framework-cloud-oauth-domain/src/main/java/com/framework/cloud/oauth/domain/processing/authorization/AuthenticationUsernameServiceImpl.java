@@ -1,11 +1,11 @@
-package com.framework.cloud.oauth.domain.support.authorization.impl;
+package com.framework.cloud.oauth.domain.processing.authorization;
 
 import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.dto.authentication.UsernameDTO;
 import com.framework.cloud.oauth.common.model.AbstractAuthenticationModel;
 import com.framework.cloud.oauth.common.model.authentication.UsernameAuthenticationModel;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
-import com.framework.cloud.oauth.domain.support.authorization.AbstractAuthenticationService;
+import com.framework.cloud.oauth.domain.processing.AbstractAuthenticationService;
 import com.framework.cloud.oauth.domain.utils.MsgUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -33,6 +33,6 @@ public class AuthenticationUsernameServiceImpl extends AbstractAuthenticationSer
     public AbstractAuthenticationModel authenticationToken(BaseTenant baseTenant, UsernameDTO param) {
         String redirectUri = param.getRedirectUri();
         String state = param.getState();
-        return new UsernameAuthenticationModel(param.getUsername(), param.getPassword(), baseTenant.getClientId(), redirectUri, state);
+        return new UsernameAuthenticationModel(param.getUsername(), param.getPassword(), baseTenant.getId(), baseTenant.getClientId(), redirectUri, state);
     }
 }

@@ -18,7 +18,7 @@ public enum OauthMsg {
     USER_BINDING("绑定后授权"),
 
     /** oauth2.0 认证失败返回消息 */
-    ERROR("authentication failed"),
+    ERROR("Authentication failed"),
     TENANT_NOT_FOUND("The tenant invalid, please contact certifying party"),
     REDIRECT_URI("Incorrect redirect_uri [{0}]"),
     CLIENT_ID("Incorrect client_id [{0}]"),

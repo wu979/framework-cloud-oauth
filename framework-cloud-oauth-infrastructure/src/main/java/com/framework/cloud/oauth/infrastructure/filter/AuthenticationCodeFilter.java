@@ -9,6 +9,7 @@ import com.framework.cloud.oauth.common.enums.GrantType;
 import com.framework.cloud.oauth.common.model.AbstractAuthenticationModel;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.domain.AuthenticationService;
+import com.framework.cloud.oauth.domain.provider.AbstractAuthenticationProvider;
 import com.framework.cloud.oauth.domain.utils.MsgUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpMethod;
@@ -26,6 +27,10 @@ import java.lang.reflect.ParameterizedType;
 
 /**
  * Authorization code filter to obtain authorization code according to authentication type
+ * The authorization code filter requests /oauth/auth to verify the user login.
+ * It provides four authentication methods.
+ * It filters the user information according to the selection and forwards it to the
+ * {@link AbstractAuthenticationProvider AuthenticationProvider }
  *
  * @author wusiwei
  */

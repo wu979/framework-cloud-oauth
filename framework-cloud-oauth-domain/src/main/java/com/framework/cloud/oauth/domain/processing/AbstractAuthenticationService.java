@@ -1,4 +1,4 @@
-package com.framework.cloud.oauth.domain.support.authorization;
+package com.framework.cloud.oauth.domain.processing;
 
 import com.framework.cloud.common.utils.StringUtil;
 import com.framework.cloud.oauth.common.base.BaseTenant;

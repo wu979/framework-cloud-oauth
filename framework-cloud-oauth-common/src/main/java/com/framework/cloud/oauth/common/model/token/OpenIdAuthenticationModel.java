@@ -13,11 +13,11 @@ import java.util.Collection;
 public class OpenIdAuthenticationModel extends AbstractAccessTokenModel {
     private static final long serialVersionUID = 7832629974840157300L;
 
-    public OpenIdAuthenticationModel(Object principal, Object credentials, String clientId) {
-        super(principal, credentials, clientId);
+    public OpenIdAuthenticationModel(Object principal, Object credentials, Long tenantId, String clientId) {
+        super(principal, credentials, tenantId, clientId);
     }
 
-    public OpenIdAuthenticationModel(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, String clientId) {
-        super(principal, credentials, authorities, clientId);
+    public OpenIdAuthenticationModel(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, Long tenantId, String clientId) {
+        super(principal, credentials, authorities, tenantId, clientId);
     }
 }

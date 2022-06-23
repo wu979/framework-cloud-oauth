@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * authorization failure
+ * Authorization failure
  *
  * @author wusiwei
  */

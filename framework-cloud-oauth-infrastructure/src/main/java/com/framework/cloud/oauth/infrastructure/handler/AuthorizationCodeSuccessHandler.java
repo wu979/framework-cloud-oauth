@@ -6,6 +6,8 @@ import com.framework.cloud.common.result.Result;
 import com.framework.cloud.oauth.infrastructure.response.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * successful acquisition of authorization code processor
+ * Successful acquisition of authorization code processor
  *
  * @author wusiwei
  */
@@ -21,6 +23,8 @@ import java.io.IOException;
 public class AuthorizationCodeSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler implements ResponseUtil<Result<String>> {
 
     private final ObjectMapper objectMapper;
+    private final OAuth2RequestFactory requestFactory;
+    private final AuthorizationCodeServices authorizationCodeServices;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {

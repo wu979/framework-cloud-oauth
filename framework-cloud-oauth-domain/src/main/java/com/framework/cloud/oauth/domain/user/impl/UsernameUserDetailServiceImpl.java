@@ -64,4 +64,5 @@ public class UsernameUserDetailServiceImpl implements AuthorizationUserDetailsSe
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         throw new UsernameNotFoundException(OauthMsg.USER_NOT_FOUND.getMsg());
     }
+
 }

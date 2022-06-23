@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * logout success
+ * Logout success
  *
  * @author wusiwei
  */

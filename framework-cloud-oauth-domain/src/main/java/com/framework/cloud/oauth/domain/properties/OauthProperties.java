@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.io.Resource;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class OauthProperties {
     public static class Jwt {
 
         @ApiModelProperty(value = "签名")
-        private String keyPath;
+        private Resource keyPath;
 
         @ApiModelProperty(value = "别名")
         private String alias;

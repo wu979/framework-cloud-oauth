@@ -3,14 +3,16 @@ package com.framework.cloud.oauth.infrastructure.filter;
 import cn.hutool.core.util.ObjectUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.framework.cloud.common.utils.FastJsonUtil;
-import com.framework.cloud.oauth.common.constant.OauthConstant;
+import com.framework.cloud.common.constant.OauthConstant;
 import com.framework.cloud.oauth.common.dto.token.*;
 import com.framework.cloud.oauth.common.enums.GrantType;
 import com.framework.cloud.oauth.common.model.AbstractAccessTokenModel;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.domain.AuthenticationService;
+import com.framework.cloud.oauth.domain.provider.AbstractAccessTokenProvider;
 import com.framework.cloud.oauth.domain.utils.HttpRequestUtil;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -25,6 +27,9 @@ import java.util.Map;
 
 /**
  * Authentication token filter to obtain authorization token according to authentication type
+ * The token authentication filter obtains the token through the /oauth/token interface.
+ * and forwards the {@link AbstractAuthenticationToken }
+ * to the authenticator {@link AbstractAccessTokenProvider AuthenticationProvider }
  *
  * @author wusiwei
  */

@@ -43,12 +43,12 @@ public class RefreshAuthenticationModel extends AbstractAccessTokenModel {
      */
     private Integer oldRefreshTokenValidity;
 
-    public RefreshAuthenticationModel(Object principal, Object credentials, String clientId) {
-        super(principal, credentials, clientId);
+    public RefreshAuthenticationModel(Object principal, Object credentials, Long tenantId, String clientId) {
+        super(principal, credentials, tenantId, clientId);
     }
 
-    public RefreshAuthenticationModel(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, String clientId) {
-        super(principal, credentials, authorities, clientId);
+    public RefreshAuthenticationModel(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, Long tenantId, String clientId) {
+        super(principal, credentials, authorities, tenantId, clientId);
     }
 
     public String getOldAccessTokenId() {

@@ -1,5 +1,6 @@
 package com.framework.cloud.oauth.domain.convert;
 
+import com.framework.cloud.holder.model.LoginUser;
 import com.framework.cloud.oauth.common.base.BaseUser;
 import com.framework.cloud.user.common.vo.UserIdentifierVO;
 import org.mapstruct.Mapper;
@@ -13,4 +14,6 @@ import org.mapstruct.Mapper;
 public interface UserConvert {
 
     BaseUser voToBase(UserIdentifierVO vo);
+
+    LoginUser baseToLogin(BaseUser baseUser);
 }

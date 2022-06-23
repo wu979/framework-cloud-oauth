@@ -23,6 +23,10 @@ public class AbstractAuthenticationModel extends AbstractAuthenticationToken imp
      */
     protected Object credentials;
     /**
+     * 租户id
+     */
+    protected Long tenantId;
+    /**
      * 认证租户
      */
     protected String appKey;
@@ -35,10 +39,11 @@ public class AbstractAuthenticationModel extends AbstractAuthenticationToken imp
      */
     protected String state;
 
-    public AbstractAuthenticationModel(Object principal, Object credentials, String appKey) {
+    public AbstractAuthenticationModel(Object principal, Object credentials, Long tenantId, String appKey) {
         super(null);
         this.principal = principal;
         this.credentials = credentials;
+        this.tenantId = tenantId;
         this.appKey = appKey;
         super.setAuthenticated(true);
     }
@@ -50,20 +55,22 @@ public class AbstractAuthenticationModel extends AbstractAuthenticationToken imp
         super.setAuthenticated(true);
     }
 
-    public AbstractAuthenticationModel(Object principal, Object credentials, String appKey, String redirectUri, String state) {
+    public AbstractAuthenticationModel(Object principal, Object credentials, Long tenantId, String appKey, String redirectUri, String state) {
         super(null);
         this.principal = principal;
         this.credentials = credentials;
+        this.tenantId = tenantId;
         this.appKey = appKey;
         this.redirectUri = redirectUri;
         this.state = state;
         super.setAuthenticated(true);
     }
 
-    public AbstractAuthenticationModel(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, String appKey, String redirectUri, String state) {
+    public AbstractAuthenticationModel(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, Long tenantId, String appKey, String redirectUri, String state) {
         super(authorities);
         this.principal = principal;
         this.credentials = credentials;
+        this.tenantId = tenantId;
         this.appKey = appKey;
         this.redirectUri = redirectUri;
         this.state = state;
@@ -84,6 +91,10 @@ public class AbstractAuthenticationModel extends AbstractAuthenticationToken imp
     public void eraseCredentials() {
         super.eraseCredentials();
         this.credentials = null;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
     }
 
     public String getAppKey() {

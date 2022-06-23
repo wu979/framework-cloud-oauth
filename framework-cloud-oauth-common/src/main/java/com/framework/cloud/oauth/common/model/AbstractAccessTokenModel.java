@@ -24,6 +24,10 @@ public class AbstractAccessTokenModel extends AbstractAuthenticationToken implem
      */
     protected Object credentials;
     /**
+     * 租户id
+     */
+    protected Long tenantId;
+    /**
      * 认证租户
      */
     protected String clientId;
@@ -32,18 +36,20 @@ public class AbstractAccessTokenModel extends AbstractAuthenticationToken implem
      */
     private Map<String, String> requestParameters;
 
-    public AbstractAccessTokenModel(Object principal, Object credentials, String clientId) {
+    public AbstractAccessTokenModel(Object principal, Object credentials, Long tenantId, String clientId) {
         super(null);
         this.principal = principal;
         this.credentials = credentials;
+        this.tenantId = tenantId;
         this.clientId = clientId;
         super.setAuthenticated(true);
     }
 
-    public AbstractAccessTokenModel(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, String clientId) {
+    public AbstractAccessTokenModel(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, Long tenantId, String clientId) {
         super(authorities);
         this.principal = principal;
         this.credentials = credentials;
+        this.tenantId = tenantId;
         this.clientId = clientId;
         super.setAuthenticated(true);
     }
@@ -62,6 +68,10 @@ public class AbstractAccessTokenModel extends AbstractAuthenticationToken implem
     public void eraseCredentials() {
         super.eraseCredentials();
         this.credentials = null;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
     }
 
     public String getClientId() {

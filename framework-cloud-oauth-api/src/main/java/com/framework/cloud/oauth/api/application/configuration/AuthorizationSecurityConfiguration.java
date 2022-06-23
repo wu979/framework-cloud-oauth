@@ -2,8 +2,6 @@ package com.framework.cloud.oauth.api.application.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.framework.cloud.cache.cache.RedisCache;
-import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
-import com.framework.cloud.oauth.domain.client.impl.AuthorizationTenantServiceImpl;
 import com.framework.cloud.oauth.domain.properties.OauthProperties;
 import com.framework.cloud.oauth.domain.user.AuthorizationUserDetailsService;
 import com.framework.cloud.oauth.domain.user.impl.UsernameUserDetailServiceImpl;
@@ -12,6 +10,7 @@ import com.framework.cloud.oauth.infrastructure.filter.AuthenticationTokenFilter
 import com.framework.cloud.oauth.infrastructure.handler.*;
 import com.framework.cloud.oauth.infrastructure.logout.AuthorizationLogoutHandler;
 import com.framework.cloud.oauth.infrastructure.logout.AuthorizationLogoutSuccessHandler;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -29,26 +28,21 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import javax.annotation.Resource;
-
 /**
  *
  *
  * @author wusiwei
  */
+@AllArgsConstructor
 @EnableWebSecurity
 @EnableConfigurationProperties(OauthProperties.class)
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class AuthorizationSecurityConfiguration {
 
-    @Resource
-    private OauthProperties oauthProperties;
-    @Resource
-    private ObjectMapper objectMapper;
-    @Resource
-    private RedisCache redisCache;
-    @Resource
-    private AuthenticationConfiguration authenticationConfiguration;
+    private final OauthProperties oauthProperties;
+    private final ObjectMapper objectMapper;
+    private final RedisCache redisCache;
+    private final AuthenticationConfiguration authenticationConfiguration;
 
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
@@ -81,10 +75,11 @@ public class AuthorizationSecurityConfiguration {
 
     @Bean
     public AuthenticationCodeFilter authenticationCodeFilter() throws Exception {
+        AuthorizationCodeSuccessHandler authorizationCodeSuccessHandler = new AuthorizationCodeSuccessHandler(objectMapper, null, null);
         AuthenticationCodeFilter filter = new AuthenticationCodeFilter("/oauth/auth");
         filter.setObjectMapper(objectMapper);
         filter.setAuthenticationManager(authenticationManager());
-        filter.setAuthenticationSuccessHandler(new AuthorizationCodeSuccessHandler(objectMapper));
+        filter.setAuthenticationSuccessHandler(authorizationCodeSuccessHandler);
         filter.setAuthenticationFailureHandler(new AuthorizationFailureHandler(objectMapper));
         return filter;
     }
@@ -104,12 +99,6 @@ public class AuthorizationSecurityConfiguration {
         return new UsernameUserDetailServiceImpl();
     }
 
-    @Bean
-    public AuthorizationTenantService authorizationTenantService() {
-        return new AuthorizationTenantServiceImpl();
-    }
-
-    /** 跨源访问 */
     @Bean
     protected CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

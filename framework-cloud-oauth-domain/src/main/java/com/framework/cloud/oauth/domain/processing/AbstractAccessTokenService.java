@@ -1,4 +1,4 @@
-package com.framework.cloud.oauth.domain.support.token;
+package com.framework.cloud.oauth.domain.processing;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.framework.cloud.cache.cache.RedisCache;
@@ -24,7 +24,7 @@ import javax.annotation.Resource;
  *
  * @author wusiwei
  */
-public abstract class AbstractAuthenticationTokenService<R extends AbstractAuthenticationToken, T extends AbstractAuthorizationDTO> implements AuthenticationService<R, T> {
+public abstract class AbstractAccessTokenService<R extends AbstractAuthenticationToken, T extends AbstractAuthorizationDTO> implements AuthenticationService<R, T> {
 
     @Resource
     private RedisCache redisCache;

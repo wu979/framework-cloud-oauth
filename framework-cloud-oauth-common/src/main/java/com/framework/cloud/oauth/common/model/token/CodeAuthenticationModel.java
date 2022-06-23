@@ -13,11 +13,11 @@ import java.util.Collection;
 public class CodeAuthenticationModel extends AbstractAccessTokenModel {
     private static final long serialVersionUID = -6023463769139923771L;
 
-    public CodeAuthenticationModel(Object principal, Object credentials, String clientId) {
-        super(principal, credentials, clientId);
+    public CodeAuthenticationModel(Object principal, Object credentials, Long tenantId, String clientId) {
+        super(principal, credentials, tenantId, clientId);
     }
 
-    public CodeAuthenticationModel(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, String clientId) {
-        super(principal, credentials, authorities, clientId);
+    public CodeAuthenticationModel(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, Long tenantId, String clientId) {
+        super(principal, credentials, authorities, tenantId, clientId);
     }
 }

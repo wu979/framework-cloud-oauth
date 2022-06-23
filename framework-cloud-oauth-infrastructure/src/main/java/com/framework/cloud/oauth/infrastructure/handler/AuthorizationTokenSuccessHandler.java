@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * token acquisition success processor
+ * Authorization token success processor
  *
  * @author wusiwei
  */

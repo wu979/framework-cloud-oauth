@@ -1,11 +1,11 @@
-package com.framework.cloud.oauth.domain.support.token.impl;
+package com.framework.cloud.oauth.domain.processing.accesstoken;
 
 import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.dto.token.CodeDTO;
 import com.framework.cloud.oauth.common.model.AbstractAccessTokenModel;
 import com.framework.cloud.oauth.common.model.token.CodeAuthenticationModel;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
-import com.framework.cloud.oauth.domain.support.token.AbstractAuthenticationTokenService;
+import com.framework.cloud.oauth.domain.processing.AbstractAccessTokenService;
 import com.framework.cloud.oauth.domain.utils.MsgUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author wusiwei
  */
 @Service("authorization_code")
-public class AuthenticationCodeServiceImpl extends AbstractAuthenticationTokenService<AbstractAccessTokenModel, CodeDTO> {
+public class AccessCodeServiceImpl extends AbstractAccessTokenService<AbstractAccessTokenModel, CodeDTO> {
 
     @Override
     protected String validParam(BaseTenant baseTenant, CodeDTO param) {

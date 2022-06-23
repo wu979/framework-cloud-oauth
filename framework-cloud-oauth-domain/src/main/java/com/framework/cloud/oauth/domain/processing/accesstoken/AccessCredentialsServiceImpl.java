@@ -1,10 +1,10 @@
-package com.framework.cloud.oauth.domain.support.token.impl;
+package com.framework.cloud.oauth.domain.processing.accesstoken;
 
 import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.dto.token.CredentialsDTO;
 import com.framework.cloud.oauth.common.model.AbstractAccessTokenModel;
 import com.framework.cloud.oauth.common.model.token.CredentialsAuthenticationModel;
-import com.framework.cloud.oauth.domain.support.token.AbstractAuthenticationTokenService;
+import com.framework.cloud.oauth.domain.processing.AbstractAccessTokenService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * @author wusiwei
  */
 @Service("client_credentials")
-public class AuthenticationCredentialsServiceImpl extends AbstractAuthenticationTokenService<AbstractAccessTokenModel, CredentialsDTO> {
+public class AccessCredentialsServiceImpl extends AbstractAccessTokenService<AbstractAccessTokenModel, CredentialsDTO> {
 
     @Override
     protected String validParam(BaseTenant baseTenant, CredentialsDTO param) {

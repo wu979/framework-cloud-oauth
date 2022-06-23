@@ -2,7 +2,7 @@ package com.framework.cloud.oauth.domain.code;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.framework.cloud.common.result.Result;
-import com.framework.cloud.oauth.common.constant.OauthConstant;
+import com.framework.cloud.common.constant.OauthConstant;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.domain.feign.PlatFormFeignService;
 import com.framework.cloud.oauth.domain.utils.MsgUtil;
