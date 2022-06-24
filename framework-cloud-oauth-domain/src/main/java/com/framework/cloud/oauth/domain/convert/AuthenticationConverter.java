@@ -2,8 +2,8 @@ package com.framework.cloud.oauth.domain.convert;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.json.JSONObject;
-import com.framework.cloud.common.constant.HeaderConstant;
-import com.framework.cloud.common.constant.OauthConstant;
+import com.framework.cloud.holder.constant.HeaderConstant;
+import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.common.utils.FastJsonUtil;
 import com.framework.cloud.holder.model.LoginUser;
 import com.framework.cloud.oauth.common.base.BaseUserDetail;
@@ -56,12 +56,12 @@ public class AuthenticationConverter extends DefaultUserAuthenticationConverter 
         if (map.containsKey(OauthConstant.USER_DETAIL)) {
             Object principal = map.get(OauthConstant.USER_DETAIL);
             LoginUser detail = new JSONObject(principal).toBean(LoginUser.class);
-            return new UsernamePasswordAuthenticationToken(detail, "N/A", authorities);
+            return new UsernamePasswordAuthenticationToken(detail, OauthConstant.CREDENTIALS, authorities);
         } else {
             if (map.containsKey(HeaderConstant.X_USER_HEADER)) {
                 String userDetail = String.valueOf(map.get(HeaderConstant.X_USER_HEADER));
                 LoginUser loginUser = FastJsonUtil.toJavaObject(userDetail, LoginUser.class);
-                return new UsernamePasswordAuthenticationToken(loginUser, "N/A", authorities);
+                return new UsernamePasswordAuthenticationToken(loginUser, OauthConstant.CREDENTIALS, authorities);
             }
         }
         return null;

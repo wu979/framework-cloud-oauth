@@ -1,8 +1,8 @@
 package com.framework.cloud.oauth.infrastructure.logout;
 
 import com.framework.cloud.cache.cache.RedisCache;
-import com.framework.cloud.common.constant.HeaderConstant;
-import com.framework.cloud.oauth.common.constant.CacheConstant;
+import com.framework.cloud.holder.constant.HeaderConstant;
+import com.framework.cloud.holder.constant.CacheConstant;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.Authentication;

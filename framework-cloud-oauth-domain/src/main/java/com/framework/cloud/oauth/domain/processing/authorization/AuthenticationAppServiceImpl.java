@@ -1,5 +1,6 @@
 package com.framework.cloud.oauth.domain.processing.authorization;
 
+import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.dto.authentication.AppDTO;
 import com.framework.cloud.oauth.common.model.AbstractAuthenticationModel;
@@ -30,6 +31,6 @@ public class AuthenticationAppServiceImpl extends AbstractAuthenticationService<
     public AbstractAuthenticationModel authenticationToken(BaseTenant baseTenant, AppDTO param) {
         String redirectUri = param.getRedirectUri();
         String state = param.getState();
-        return new AppAuthenticationModel(param.getOpenId(), "N/A", baseTenant.getId(), baseTenant.getClientId(), redirectUri, state);
+        return new AppAuthenticationModel(param.getOpenId(), OauthConstant.CREDENTIALS, baseTenant.getId(), baseTenant.getClientId(), redirectUri, state);
     }
 }

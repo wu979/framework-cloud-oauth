@@ -1,5 +1,6 @@
 package com.framework.cloud.oauth.domain.processing.accesstoken;
 
+import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.dto.token.OpenIdDTO;
 import com.framework.cloud.oauth.common.model.AbstractAccessTokenModel;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @author wusiwei
  */
 @Service("open_id")
-public class AccessOpenIdServiceImpl extends AbstractAccessTokenService<AbstractAccessTokenModel, OpenIdDTO> {
+public class AuthenticationOpenIdServiceImpl extends AbstractAccessTokenService<AbstractAccessTokenModel, OpenIdDTO> {
 
     @Override
     protected String validParam(BaseTenant baseTenant, OpenIdDTO param) {
@@ -28,6 +29,6 @@ public class AccessOpenIdServiceImpl extends AbstractAccessTokenService<Abstract
 
     @Override
     protected AbstractAccessTokenModel authenticationToken(BaseTenant baseTenant, OpenIdDTO param) {
-        return new OpenIdAuthenticationModel(param.getOpenId(), "N/A", baseTenant.getClientId());
+        return new OpenIdAuthenticationModel(param.getOpenId(), OauthConstant.CREDENTIALS, baseTenant.getId(), baseTenant.getClientId());
     }
 }

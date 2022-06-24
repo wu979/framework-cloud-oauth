@@ -15,4 +15,6 @@ public class BaseTenant extends BaseClientDetails {
     private Long id;
 
     private String name;
+
+    private Integer maxCount;
 }

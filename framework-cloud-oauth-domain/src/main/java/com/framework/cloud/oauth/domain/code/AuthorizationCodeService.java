@@ -2,7 +2,7 @@ package com.framework.cloud.oauth.domain.code;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.framework.cloud.common.result.Result;
-import com.framework.cloud.common.constant.OauthConstant;
+import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.domain.feign.PlatFormFeignService;
 import com.framework.cloud.oauth.domain.utils.MsgUtil;
@@ -50,7 +50,7 @@ public class AuthorizationCodeService extends RandomValueAuthorizationCodeServic
         }
         OauthCodeInfoVO oauthCodeInfoVO = result.getData();
         if (ObjectUtil.isNull(oauthCodeInfoVO)) {
-            throw new InvalidGrantException(MsgUtil.format(OauthMsg.ERROR_CODE, code));
+            throw new InvalidGrantException(MsgUtil.format(OauthMsg.AUTHORIZATION_CODE, code));
         }
         try {
             byte[] bytes = oauthCodeInfoVO.getAuthentication();

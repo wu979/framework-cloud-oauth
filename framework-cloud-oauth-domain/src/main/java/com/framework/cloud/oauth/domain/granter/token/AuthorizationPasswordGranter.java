@@ -1,6 +1,6 @@
 package com.framework.cloud.oauth.domain.granter.token;
 
-import com.framework.cloud.common.constant.OauthConstant;
+import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.model.authentication.UsernameAuthenticationModel;
 import com.framework.cloud.oauth.common.msg.OauthMsg;

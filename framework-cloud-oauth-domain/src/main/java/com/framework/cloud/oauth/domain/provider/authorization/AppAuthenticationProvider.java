@@ -1,5 +1,6 @@
 package com.framework.cloud.oauth.domain.provider.authorization;
 
+import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.model.authentication.AppAuthenticationModel;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.domain.provider.AbstractAuthenticationProvider;
@@ -28,6 +29,9 @@ public class AppAuthenticationProvider extends AbstractAuthenticationProvider {
     protected void additionalAuthenticationChecks(UserDetails userDetails, Authentication authentication) throws AuthenticationException {
         if (authentication.getPrincipal() == null) {
             throw new BadCredentialsException(MsgUtil.format(OauthMsg.OPEN_ID, authentication.getPrincipal()));
+        }
+        if (!OauthConstant.CREDENTIALS.equals(authentication.getCredentials())) {
+            throw new BadCredentialsException(OauthMsg.ERROR.getMsg());
         }
     }
 

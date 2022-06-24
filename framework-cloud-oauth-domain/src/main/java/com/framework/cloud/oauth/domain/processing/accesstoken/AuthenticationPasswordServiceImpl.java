@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author wusiwei
  */
 @Service("password")
-public class AccessPasswordServiceImpl extends AbstractAccessTokenService<AbstractAccessTokenModel, PasswordDTO> {
+public class AuthenticationPasswordServiceImpl extends AbstractAccessTokenService<AbstractAccessTokenModel, PasswordDTO> {
 
     @Override
     protected String validParam(BaseTenant baseTenant, PasswordDTO param) {
@@ -31,6 +31,6 @@ public class AccessPasswordServiceImpl extends AbstractAccessTokenService<Abstra
 
     @Override
     protected AbstractAccessTokenModel authenticationToken(BaseTenant baseTenant, PasswordDTO param) {
-        return new PasswordAuthenticationModel(param.getUsername(), param.getPassword(), baseTenant.getClientId());
+        return new PasswordAuthenticationModel(param.getUsername(), param.getPassword(), baseTenant.getId(), baseTenant.getClientId());
     }
 }

@@ -1,7 +1,7 @@
 package com.framework.cloud.oauth.domain.processing.accesstoken;
 
 import com.framework.cloud.oauth.common.base.BaseTenant;
-import com.framework.cloud.common.constant.OauthConstant;
+import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.dto.token.ImplicitDTO;
 import com.framework.cloud.oauth.common.model.AbstractAccessTokenModel;
 import com.framework.cloud.oauth.common.model.token.ImplicitAuthenticationModel;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @author wusiwei
  */
 @Service("implicit")
-public class AccessImplicitServiceImpl extends AbstractAccessTokenService<AbstractAccessTokenModel, ImplicitDTO> {
+public class AuthenticationImplicitServiceImpl extends AbstractAccessTokenService<AbstractAccessTokenModel, ImplicitDTO> {
 
     @Override
     protected String validParam(BaseTenant baseTenant, ImplicitDTO param) {
@@ -35,6 +35,6 @@ public class AccessImplicitServiceImpl extends AbstractAccessTokenService<Abstra
 
     @Override
     protected AbstractAccessTokenModel authenticationToken(BaseTenant baseTenant, ImplicitDTO param) {
-        return new ImplicitAuthenticationModel(baseTenant.getClientId(), "N/A", baseTenant.getClientId());
+        return new ImplicitAuthenticationModel(baseTenant.getClientId(), OauthConstant.CREDENTIALS, baseTenant.getId(), baseTenant.getClientId());
     }
 }

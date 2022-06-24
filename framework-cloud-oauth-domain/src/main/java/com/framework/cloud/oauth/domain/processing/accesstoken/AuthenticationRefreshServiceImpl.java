@@ -1,5 +1,6 @@
 package com.framework.cloud.oauth.domain.processing.accesstoken;
 
+import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.dto.token.RefreshDTO;
 import com.framework.cloud.oauth.common.model.AbstractAccessTokenModel;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @author wusiwei
  */
 @Service("refresh_token")
-public class AccessRefreshServiceImpl extends AbstractAccessTokenService<AbstractAccessTokenModel, RefreshDTO> {
+public class AuthenticationRefreshServiceImpl extends AbstractAccessTokenService<AbstractAccessTokenModel, RefreshDTO> {
 
     @Override
     protected String validParam(BaseTenant baseTenant, RefreshDTO param) {
@@ -28,6 +29,6 @@ public class AccessRefreshServiceImpl extends AbstractAccessTokenService<Abstrac
 
     @Override
     protected AbstractAccessTokenModel authenticationToken(BaseTenant baseTenant, RefreshDTO param) {
-        return new RefreshAuthenticationModel(param.getRefreshToken(), "N/A", baseTenant.getClientId());
+        return new RefreshAuthenticationModel(param.getRefreshToken(), OauthConstant.CREDENTIALS, baseTenant.getId(), baseTenant.getClientId());
     }
 }

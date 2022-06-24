@@ -1,6 +1,6 @@
 package com.framework.cloud.oauth.domain.granter.token;
 
-import com.framework.cloud.common.constant.OauthConstant;
+import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.model.token.OpenIdAuthenticationModel;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
@@ -40,7 +40,7 @@ public class AuthorizationOpenIdGranter extends AbstractAuthorizationGranter {
         Map<String, String> parameters = new LinkedHashMap<String, String>(tokenRequest.getRequestParameters());
         String clientId = parameters.get(OauthConstant.CLIENT_ID);
         String openId = parameters.get(OauthConstant.OPEN_ID);
-        Authentication userAuth = new OpenIdAuthenticationModel(openId, "N/A", baseTenant.getId(), clientId);
+        Authentication userAuth = new OpenIdAuthenticationModel(openId, OauthConstant.CREDENTIALS, baseTenant.getId(), clientId);
         ((AbstractAuthenticationToken) userAuth).setDetails(parameters);
         try {
             userAuth = authenticationManager.authenticate(userAuth);

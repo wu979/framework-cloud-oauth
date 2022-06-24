@@ -2,7 +2,7 @@ package com.framework.cloud.oauth.infrastructure.response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.framework.cloud.common.result.R;
-import com.framework.cloud.common.constant.OauthConstant;
+import com.framework.cloud.holder.constant.OauthConstant;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

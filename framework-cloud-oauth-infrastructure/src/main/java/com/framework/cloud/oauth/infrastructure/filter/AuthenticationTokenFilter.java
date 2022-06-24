@@ -3,7 +3,7 @@ package com.framework.cloud.oauth.infrastructure.filter;
 import cn.hutool.core.util.ObjectUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.framework.cloud.common.utils.FastJsonUtil;
-import com.framework.cloud.common.constant.OauthConstant;
+import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.dto.token.*;
 import com.framework.cloud.oauth.common.enums.GrantType;
 import com.framework.cloud.oauth.common.model.AbstractAccessTokenModel;

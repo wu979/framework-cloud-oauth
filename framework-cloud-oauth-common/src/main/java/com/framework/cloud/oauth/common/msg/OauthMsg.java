@@ -19,6 +19,7 @@ public enum OauthMsg {
 
     /** oauth2.0 认证失败返回消息 */
     ERROR("Authentication failed"),
+    TOKEN_ERROR("Token exchange failed"),
     TENANT_NOT_FOUND("The tenant invalid, please contact certifying party"),
     REDIRECT_URI("Incorrect redirect_uri [{0}]"),
     CLIENT_ID("Incorrect client_id [{0}]"),
@@ -27,7 +28,7 @@ public enum OauthMsg {
     MAX_COUNT("This client has reached the maximum number of authentications"),
     APP_KEY("Incorrect app_key [{0}]"),
     CREATE_CODE("create error authorization code"),
-    ERROR_CODE("Incorrect authorization code [{0}]"),
+    AUTHORIZATION_CODE("Incorrect authorization code [{0}]"),
     RESPONSE_TYPE("Incorrect response_type [{0}]"),
     SCOPE("Incorrect scope [{0}]"),
     OPEN_ID("Incorrect open_id [{0}]"),
@@ -37,6 +38,7 @@ public enum OauthMsg {
     EMAIL("Incorrect email [{0}]"),
     VALID_CODE("Incorrect code [{0}]"),
     PHONE("Incorrect phone [{0}]"),
+    REFRESH_TOKEN_EXPIRE("The token has expired, please authorization again"),
     ;
 
     private final String msg;

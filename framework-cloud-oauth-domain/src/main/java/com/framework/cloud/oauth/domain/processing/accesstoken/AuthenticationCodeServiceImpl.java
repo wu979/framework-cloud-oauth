@@ -1,5 +1,6 @@
 package com.framework.cloud.oauth.domain.processing.accesstoken;
 
+import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.dto.token.CodeDTO;
 import com.framework.cloud.oauth.common.model.AbstractAccessTokenModel;
@@ -16,12 +17,12 @@ import org.springframework.stereotype.Service;
  * @author wusiwei
  */
 @Service("authorization_code")
-public class AccessCodeServiceImpl extends AbstractAccessTokenService<AbstractAccessTokenModel, CodeDTO> {
+public class AuthenticationCodeServiceImpl extends AbstractAccessTokenService<AbstractAccessTokenModel, CodeDTO> {
 
     @Override
     protected String validParam(BaseTenant baseTenant, CodeDTO param) {
         if (StringUtils.isBlank(param.getCode())) {
-            return MsgUtil.format(OauthMsg.ERROR_CODE, param.getCode());
+            return MsgUtil.format(OauthMsg.AUTHORIZATION_CODE, param.getCode());
         }
         if (StringUtils.isBlank(param.getRedirectUri())) {
             return MsgUtil.format(OauthMsg.REDIRECT_URI, param.getRedirectUri());
@@ -34,7 +35,7 @@ public class AccessCodeServiceImpl extends AbstractAccessTokenService<AbstractAc
 
     @Override
     protected AbstractAccessTokenModel authenticationToken(BaseTenant baseTenant, CodeDTO param) {
-        return new CodeAuthenticationModel(param.getCode(), "N/A", baseTenant.getClientId());
+        return new CodeAuthenticationModel(param.getCode(), OauthConstant.CREDENTIALS, baseTenant.getId(), baseTenant.getClientId());
     }
 
 }

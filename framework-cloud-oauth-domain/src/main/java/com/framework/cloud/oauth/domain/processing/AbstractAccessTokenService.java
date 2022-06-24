@@ -5,7 +5,7 @@ import com.framework.cloud.cache.cache.RedisCache;
 import com.framework.cloud.common.utils.MD5Util;
 import com.framework.cloud.common.utils.StringUtil;
 import com.framework.cloud.oauth.common.base.BaseTenant;
-import com.framework.cloud.oauth.common.constant.CacheConstant;
+import com.framework.cloud.holder.constant.CacheConstant;
 import com.framework.cloud.oauth.common.dto.AbstractAuthorizationDTO;
 import com.framework.cloud.oauth.common.dto.token.AccessTokenDTO;
 import com.framework.cloud.oauth.common.msg.OauthMsg;

@@ -1,6 +1,6 @@
 package com.framework.cloud.oauth.domain.convert;
 
-import com.framework.cloud.common.constant.HeaderConstant;
+import com.framework.cloud.holder.constant.HeaderConstant;
 import com.framework.cloud.common.utils.FastJsonUtil;
 import com.framework.cloud.holder.model.LoginUser;
 import com.framework.cloud.oauth.common.base.BaseUserDetail;
@@ -34,6 +34,7 @@ public class AuthenticationTokenConverter extends JwtAccessTokenConverter {
         }
         if (null != loginUser) {
             token.getAdditionalInformation().put(HeaderConstant.X_USER_HEADER, FastJsonUtil.toJSONString(loginUser));
+            token.getAdditionalInformation().put(HeaderConstant.X_USER_ID_HEADER, loginUser.getId());
         }
         return super.enhance(token, authentication);
     }

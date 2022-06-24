@@ -1,5 +1,6 @@
 package com.framework.cloud.oauth.domain.processing.accesstoken;
 
+import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.dto.token.CredentialsDTO;
 import com.framework.cloud.oauth.common.model.AbstractAccessTokenModel;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @author wusiwei
  */
 @Service("client_credentials")
-public class AccessCredentialsServiceImpl extends AbstractAccessTokenService<AbstractAccessTokenModel, CredentialsDTO> {
+public class AuthenticationCredentialsServiceImpl extends AbstractAccessTokenService<AbstractAccessTokenModel, CredentialsDTO> {
 
     @Override
     protected String validParam(BaseTenant baseTenant, CredentialsDTO param) {
@@ -22,6 +23,6 @@ public class AccessCredentialsServiceImpl extends AbstractAccessTokenService<Abs
 
     @Override
     protected AbstractAccessTokenModel authenticationToken(BaseTenant baseTenant, CredentialsDTO param) {
-        return new CredentialsAuthenticationModel(baseTenant.getClientId(), "N/A", baseTenant.getClientId());
+        return new CredentialsAuthenticationModel(baseTenant.getClientId(), OauthConstant.CREDENTIALS, baseTenant.getId(), baseTenant.getClientId());
     }
 }
