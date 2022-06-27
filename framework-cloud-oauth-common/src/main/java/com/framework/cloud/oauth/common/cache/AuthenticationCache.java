@@ -1,8 +1,8 @@
 package com.framework.cloud.oauth.common.cache;
 
-import com.framework.cloud.common.annotation.CacheTarget;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -13,7 +13,6 @@ import java.io.Serializable;
  */
 @Data
 @Builder
-@CacheTarget
 public class AuthenticationCache implements Serializable {
     private static final long serialVersionUID = 1410525289090684753L;
 

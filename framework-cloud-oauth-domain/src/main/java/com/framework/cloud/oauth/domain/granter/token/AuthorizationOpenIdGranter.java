@@ -8,6 +8,7 @@ import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
 import com.framework.cloud.oauth.domain.granter.AbstractAuthorizationGranter;
 import com.framework.cloud.oauth.domain.utils.MsgUtil;
 import com.framework.cloud.platform.common.enums.GrantType;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +19,7 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.TokenRequest;
 
+import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -28,11 +30,12 @@ import java.util.Map;
  */
 public class AuthorizationOpenIdGranter extends AbstractAuthorizationGranter {
 
-    private final AuthenticationManager authenticationManager;
+    @Lazy
+    @Resource
+    private AuthenticationManager authenticationManager;
 
-    public AuthorizationOpenIdGranter(AuthenticationManager authenticationManager, AuthorizationTenantService authorizationTenantService, OAuth2RequestFactory requestFactory) {
+    public AuthorizationOpenIdGranter(AuthorizationTenantService authorizationTenantService, OAuth2RequestFactory requestFactory) {
         super(GrantType.OPEN_ID.getGrant(), requestFactory, authorizationTenantService);
-        this.authenticationManager = authenticationManager;
     }
 
     @Override
