@@ -45,7 +45,7 @@ public abstract class AbstractAccessTokenService<R extends AbstractAuthenticatio
             throw new AuthenticationServiceException(MsgUtil.format(OauthMsg.CLIENT_SECRET, clientSecret));
         }
         BaseTenant baseTenant = authorizationTenantService.loadTenantByCode(clientId);
-        if (!clientSecret.equals(MD5Util.encode(clientSecret))) {
+        if (!baseTenant.getClientSecret().equals(MD5Util.encode(clientSecret))) {
             throw new AuthenticationServiceException(MsgUtil.format(OauthMsg.CLIENT_SECRET, clientSecret));
         }
         if (!baseTenant.getAuthorizedGrantTypes().contains(authorization.getGrantType())) {

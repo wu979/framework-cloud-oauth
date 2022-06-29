@@ -1,5 +1,6 @@
 package com.framework.cloud.oauth.domain.granter.token;
 
+import com.framework.cloud.core.spring.ApplicationContextHolder;
 import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.model.authentication.UsernameAuthenticationModel;
@@ -8,18 +9,14 @@ import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
 import com.framework.cloud.oauth.domain.granter.AbstractAuthorizationGranter;
 import com.framework.cloud.oauth.domain.utils.MsgUtil;
 import com.framework.cloud.platform.common.enums.GrantType;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.TokenRequest;
 
-import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -31,10 +28,6 @@ import java.util.Map;
  * @description: 密码
  */
 public class AuthorizationPasswordGranter extends AbstractAuthorizationGranter {
-
-    @Lazy
-    @Resource
-    private AuthenticationManager authenticationManager;
 
     public AuthorizationPasswordGranter(AuthorizationTenantService authorizationTenantService, OAuth2RequestFactory requestFactory) {
         super(GrantType.PASSWORD.getGrant(), requestFactory, authorizationTenantService);
@@ -50,9 +43,9 @@ public class AuthorizationPasswordGranter extends AbstractAuthorizationGranter {
         Authentication userAuth = new UsernameAuthenticationModel(username, password, baseTenant.getId(), clientId);
         ((AbstractAuthenticationToken) userAuth).setDetails(parameters);
         try {
-            userAuth = authenticationManager.authenticate(userAuth);
-        } catch (AccountStatusException | BadCredentialsException e) {
-            throw new InvalidGrantException(e.getMessage());
+            userAuth = ApplicationContextHolder.getBean(AuthenticationManager.class).authenticate(userAuth);
+        } catch (Exception e) {
+            throw new InvalidGrantException(OauthMsg.ERROR.getMsg());
         }
         if (userAuth == null || !userAuth.isAuthenticated()) {
             throw new InvalidGrantException(MsgUtil.format(OauthMsg.USERNAME, username));

@@ -1,5 +1,6 @@
 package com.framework.cloud.oauth.domain.granter.token;
 
+import com.framework.cloud.core.spring.ApplicationContextHolder;
 import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.model.token.OpenIdAuthenticationModel;
@@ -8,7 +9,6 @@ import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
 import com.framework.cloud.oauth.domain.granter.AbstractAuthorizationGranter;
 import com.framework.cloud.oauth.domain.utils.MsgUtil;
 import com.framework.cloud.platform.common.enums.GrantType;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +19,6 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.TokenRequest;
 
-import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -29,10 +28,6 @@ import java.util.Map;
  * @author wusiwei
  */
 public class AuthorizationOpenIdGranter extends AbstractAuthorizationGranter {
-
-    @Lazy
-    @Resource
-    private AuthenticationManager authenticationManager;
 
     public AuthorizationOpenIdGranter(AuthorizationTenantService authorizationTenantService, OAuth2RequestFactory requestFactory) {
         super(GrantType.OPEN_ID.getGrant(), requestFactory, authorizationTenantService);
@@ -46,7 +41,7 @@ public class AuthorizationOpenIdGranter extends AbstractAuthorizationGranter {
         Authentication userAuth = new OpenIdAuthenticationModel(openId, OauthConstant.CREDENTIALS, baseTenant.getId(), clientId);
         ((AbstractAuthenticationToken) userAuth).setDetails(parameters);
         try {
-            userAuth = authenticationManager.authenticate(userAuth);
+            userAuth = ApplicationContextHolder.getBean(AuthenticationManager.class).authenticate(userAuth);
         } catch (AccountStatusException | BadCredentialsException e) {
             throw new InvalidGrantException(e.getMessage());
         }

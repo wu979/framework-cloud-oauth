@@ -46,7 +46,7 @@ public class AuthorizationCodeService extends RandomValueAuthorizationCodeServic
     public OAuth2Authentication remove(String code) {
         Result<OauthCodeInfoVO> result = platFormFeignService.getOauthCode(code);
         if (!result.success()) {
-            throw new InvalidGrantException(result.getMsg());
+            throw new InvalidGrantException(MsgUtil.format(OauthMsg.AUTHORIZATION_CODE, code));
         }
         OauthCodeInfoVO oauthCodeInfoVO = result.getData();
         if (ObjectUtil.isNull(oauthCodeInfoVO)) {

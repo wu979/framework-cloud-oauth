@@ -4,7 +4,6 @@ import com.framework.cloud.cache.cache.RedisCache;
 import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.cache.AuthenticationCache;
-import com.framework.cloud.oauth.common.model.AbstractAccessTokenModel;
 import com.framework.cloud.oauth.common.model.token.CodeAuthenticationModel;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
@@ -39,11 +38,6 @@ public class CodeAuthenticationProvider extends AbstractAccessTokenProvider {
             throw new BadCredentialsException(OauthMsg.ERROR.getMsg());
         }
         return authentication;
-    }
-
-    @Override
-    public BaseTenant baseTenant(AbstractAccessTokenModel abstractAccessTokenModel) {
-        return super.baseTenant(abstractAccessTokenModel);
     }
 
     @Override

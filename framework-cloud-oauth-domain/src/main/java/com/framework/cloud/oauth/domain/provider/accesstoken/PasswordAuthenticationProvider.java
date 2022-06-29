@@ -36,7 +36,7 @@ public class PasswordAuthenticationProvider extends AbstractAccessTokenProvider 
         if (authentication.getCredentials() == null) {
             throw new BadCredentialsException(MsgUtil.format(OauthMsg.PASSWORD, authentication.getPrincipal()));
         }
-        return null;
+        return authentication;
     }
 
     @Override

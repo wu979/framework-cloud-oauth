@@ -37,7 +37,7 @@ public class OpenIdAuthenticationProvider extends AbstractAccessTokenProvider {
         if (!OauthConstant.CREDENTIALS.equals(authentication.getCredentials())) {
             throw new BadCredentialsException(OauthMsg.ERROR.getMsg());
         }
-        return null;
+        return authentication;
     }
 
     @Override
