@@ -19,6 +19,6 @@ public interface UserFeignService {
     @GetMapping(value = "/user/{tenantId}/{identifier}/user")
     Result<UserIdentifierVO> user(@PathVariable("tenantId") Long tenantId, @PathVariable("identifier") String identifier);
 
-    @GetMapping(value = "/{userId}/role/list")
+    @GetMapping(value = "/role/{userId}/user/list")
     Result<List<String>> roleList(@PathVariable("userId") Long userId);
 }

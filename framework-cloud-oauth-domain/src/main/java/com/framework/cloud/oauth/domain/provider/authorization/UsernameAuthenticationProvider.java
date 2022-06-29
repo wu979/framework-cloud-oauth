@@ -32,8 +32,7 @@ public class UsernameAuthenticationProvider extends AbstractAuthenticationProvid
         if (authentication.getCredentials() == null) {
             throw new BadCredentialsException(MsgUtil.format(OauthMsg.PASSWORD, authentication.getCredentials()));
         }
-        String password = authentication.getCredentials().toString();
-        if (!userDetails.getPassword().equals(MD5Util.encode(password))) {
+        if (!userDetails.getPassword().equals(MD5Util.encode(authentication.getCredentials().toString()))) {
             throw new BadCredentialsException(MsgUtil.format(OauthMsg.PASSWORD, authentication.getCredentials()));
         }
     }
