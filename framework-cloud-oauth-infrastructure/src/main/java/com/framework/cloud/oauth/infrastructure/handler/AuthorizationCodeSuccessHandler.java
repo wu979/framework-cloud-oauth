@@ -60,7 +60,7 @@ public class AuthorizationCodeSuccessHandler extends SavedRequestAwareAuthentica
             OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authenticationModel);
             String code = authorizationCodeServices.createAuthorizationCode(oAuth2Authentication);
             if (StringUtils.isNotBlank(code)) {
-                String url ;
+                String url;
                 if (StringUtils.isBlank(state)) {
                     url = MessageFormat.format(OauthConstant.CODE_PARAM, redirectUri, appKey, code);
                 } else {

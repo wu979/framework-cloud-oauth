@@ -1,7 +1,7 @@
 package com.framework.cloud.oauth.domain.processing.accesstoken;
 
-import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.holder.constant.OauthConstant;
+import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.dto.token.ImplicitDTO;
 import com.framework.cloud.oauth.common.model.AbstractAccessTokenModel;
 import com.framework.cloud.oauth.common.model.token.ImplicitAuthenticationModel;

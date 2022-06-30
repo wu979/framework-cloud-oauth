@@ -13,7 +13,7 @@ import java.util.Collection;
 
 /**
  * Token granter supports custom types
- *
+ * <p>
  * Token generation: implement the oauth2.0 {@link TokenGranter } interface,
  * rewrite and implement the custom generation rules,
  * and adopt the prototype mode to obtain the {@link AuthorizationServerTokenServices } generated token

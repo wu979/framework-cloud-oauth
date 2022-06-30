@@ -31,7 +31,7 @@ spring:
         config-long-poll-timeout: 20000
         #配置
         shared-configs:
-          - {"dataId" : application.yml, "group" : COMMON, "refresh" : true}
-          - {"dataId" : feign.yml, "group" : COMMON, "refresh" : true}
-          - {"dataId" : swagger.yml, "group" : COMMON, "refresh" : true}
-          - {"dataId" : cache.yml, "group" : COMMON, "refresh" : true}
+          - {"dataId": application.yml, "group": COMMON, "refresh": true}
+          - {"dataId": feign.yml, "group": COMMON, "refresh": true}
+          - {"dataId": swagger.yml, "group": COMMON, "refresh": true}
+          - {"dataId": cache.yml, "group": COMMON, "refresh": true}

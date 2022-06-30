@@ -21,8 +21,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import javax.annotation.Resource;
 
 /**
- *
- *
  * @author wusiwei
  */
 @Configuration

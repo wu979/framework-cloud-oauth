@@ -93,31 +93,57 @@ public abstract class AbstractAccessTokenProvider implements AuthenticationProvi
         return createSuccess(authenticationCache, authentication, oAuth2AccessToken);
     }
 
-    /** 检查 */
+    /**
+     * 检查
+     */
     protected abstract Authentication additionalAuthenticationChecks(Authentication authentication) throws AuthenticationException;
-    /** 增加租户最大认证次数 */
+
+    /**
+     * 增加租户最大认证次数
+     */
     protected abstract void pushTenantMaxCount(Long tenantId);
-    /** 增加用户最大认证次数 */
+
+    /**
+     * 增加用户最大认证次数
+     */
     protected abstract void pushUserMaxCount(OAuth2AccessToken oAuth2AccessToken, BaseTenant baseTenant);
-    /** 创建成功授权返回信息 */
+
+    /**
+     * 创建成功授权返回信息
+     */
     protected abstract Authentication createSuccessAuthentication(Authentication authentication, OAuth2AccessToken oAuth2AccessToken, AuthenticationCache authenticationCache);
-    /** 获取租户 */
+
+    /**
+     * 获取租户
+     */
     protected BaseTenant baseTenant(AbstractAccessTokenModel abstractAccessTokenModel) {
         return authorizationTenantService.loadTenantByCode(abstractAccessTokenModel.getClientId());
     }
-    /** 获取授权参数 */
+
+    /**
+     * 获取授权参数
+     */
     protected Map<String, String> requestParameters(AbstractAccessTokenModel abstractAccessTokenModel) {
         return abstractAccessTokenModel.getRequestParameters();
     }
-    /** 构建Oauth参数 */
+
+    /**
+     * 构建Oauth参数
+     */
     protected TokenRequest tokenRequest(Map<String, String> requestParameters, BaseTenant baseTenant) {
         return requestFactory.createTokenRequest(requestParameters, baseTenant);
     }
-    /** 创建令牌 */
+
+    /**
+     * 创建令牌
+     */
     protected OAuth2AccessToken createAccessToken(String grantType, TokenRequest tokenRequest) throws AuthenticationServiceException {
         return tokenGranter.grant(grantType, tokenRequest);
     }
-    /** 构建令牌缓存 */
+
+    /**
+     * 构建令牌缓存
+     */
     protected AuthenticationCache tokenCache(BaseTenant baseTenant, OAuth2AccessToken oAuth2AccessToken) {
         Integer accessTokenValiditySeconds = baseTenant.getAccessTokenValiditySeconds();
         if (ObjectUtil.isNull(accessTokenValiditySeconds) || accessTokenValiditySeconds <= GlobalNumber.ZERO.getIntValue()) {
@@ -140,7 +166,10 @@ public abstract class AbstractAccessTokenProvider implements AuthenticationProvi
                 .accessTokenValidity(accessTokenValiditySeconds).refreshTokenValidity(refreshTokenValiditySeconds)
                 .build();
     }
-    /** 缓存令牌 */
+
+    /**
+     * 缓存令牌
+     */
     protected boolean cacheAccessToken(AuthenticationCache authenticationCache, Authentication authentication) {
         try {
             //访问令牌 过期时间
@@ -179,19 +208,25 @@ public abstract class AbstractAccessTokenProvider implements AuthenticationProvi
         }
         return false;
     }
-    /** 增加租户认证次数 */
+
+    /**
+     * 增加租户认证次数
+     */
     protected void tenantCount(Long tenantId) {
         String tenantKey = CacheConstant.TENANT_COUNT + tenantId;
         Integer count = redisCache.get(tenantKey, Integer.TYPE);
         if (ObjectUtil.isNull(count)) {
             count = 1;
         } else {
-            ++ count;
+            ++count;
         }
         long l = LocalDateUtil.between(LocalDateUtil.getLastDay()).toMillis();
         redisCache.put(tenantKey, count, l, TimeUnit.MILLISECONDS);
     }
-    /** 增加用户认证次数 */
+
+    /**
+     * 增加用户认证次数
+     */
     protected void userCount(OAuth2AccessToken oAuth2AccessToken, BaseTenant baseTenant) {
         if (baseTenant.getMaxCount().equals(GlobalNumber.MINUS_ONE.getIntValue())) {
             return;
@@ -203,19 +238,22 @@ public abstract class AbstractAccessTokenProvider implements AuthenticationProvi
         if (ObjectUtil.isNull(count)) {
             count = 1;
         } else {
-            ++ count;
+            ++count;
         }
         long l = LocalDateUtil.between(LocalDateUtil.getLastDay()).toMillis();
         redisCache.put(userKey, count, l, TimeUnit.MILLISECONDS);
     }
-    /** 创建成功授权返回信息 */
+
+    /**
+     * 创建成功授权返回信息
+     */
     protected Authentication createSuccess(AuthenticationCache authenticationCache, Authentication authentication, OAuth2AccessToken auth2AccessToken) throws AuthenticationServiceException {
         Map<String, Object> additionalInformation = auth2AccessToken.getAdditionalInformation();
         AbstractAccessTokenModel abstractAccessTokenModel = (AbstractAccessTokenModel) authentication;
         SuccessAuthenticationModel successAuthenticationModel = new SuccessAuthenticationModel(
                 authentication.getPrincipal(), authentication.getCredentials(),
                 abstractAccessTokenModel.getTenantId(), abstractAccessTokenModel.getClientId()
-                );
+        );
         successAuthenticationModel.setAccessToken(authenticationCache.getAccessTokenId());
         successAuthenticationModel.setRefreshToken(authenticationCache.getRefreshTokenId());
         successAuthenticationModel.setExpiresIn(String.valueOf(authenticationCache.getAccessTokenValidity()));

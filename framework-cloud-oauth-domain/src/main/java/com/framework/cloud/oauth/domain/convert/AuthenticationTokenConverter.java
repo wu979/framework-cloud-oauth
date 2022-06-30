@@ -1,7 +1,7 @@
 package com.framework.cloud.oauth.domain.convert;
 
-import com.framework.cloud.holder.constant.HeaderConstant;
 import com.framework.cloud.common.utils.FastJsonUtil;
+import com.framework.cloud.holder.constant.HeaderConstant;
 import com.framework.cloud.holder.model.LoginUser;
 import com.framework.cloud.oauth.common.base.BaseUserDetail;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +11,6 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 /**
- *
- *
  * @author wusiwei
  */
 @RequiredArgsConstructor

@@ -12,12 +12,16 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum OauthMsg {
 
-    /** 错误消息 */
+    /**
+     * 错误消息
+     */
     USER_NOT_FOUND("账号或密码错误"),
     USER_VERIFIED("认证后授权"),
     USER_BINDING("绑定后授权"),
 
-    /** oauth2.0 认证失败返回消息 */
+    /**
+     * oauth2.0 认证失败返回消息
+     */
     ERROR("Authentication failed"),
     TOKEN_ERROR("Token exchange failed"),
     TENANT_NOT_FOUND("The tenant invalid, please contact certifying party"),

@@ -2,9 +2,9 @@ package com.framework.cloud.oauth.domain.convert;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.json.JSONObject;
+import com.framework.cloud.common.utils.FastJsonUtil;
 import com.framework.cloud.holder.constant.HeaderConstant;
 import com.framework.cloud.holder.constant.OauthConstant;
-import com.framework.cloud.common.utils.FastJsonUtil;
 import com.framework.cloud.holder.model.LoginUser;
 import com.framework.cloud.oauth.common.base.BaseUserDetail;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- *
- *
  * @author wusiwei
  */
 @RequiredArgsConstructor
