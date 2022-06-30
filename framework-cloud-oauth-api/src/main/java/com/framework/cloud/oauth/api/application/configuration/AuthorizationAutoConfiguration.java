@@ -1,4 +1,4 @@
-package com.framework.cloud.oauth.api.application;
+package com.framework.cloud.oauth.api.application.configuration;
 
 import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
 import com.framework.cloud.oauth.domain.client.impl.AuthorizationTenantServiceImpl;

@@ -2,7 +2,6 @@ package com.framework.cloud.oauth.api.application.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.framework.cloud.cache.cache.RedisCache;
-import com.framework.cloud.oauth.api.application.AuthorizationAutoConfiguration;
 import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
 import com.framework.cloud.oauth.domain.feign.MessageFeignService;
 import com.framework.cloud.oauth.domain.properties.OauthProperties;
