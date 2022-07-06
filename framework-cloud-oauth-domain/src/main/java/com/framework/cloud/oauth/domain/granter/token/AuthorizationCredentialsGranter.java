@@ -1,8 +1,8 @@
 package com.framework.cloud.oauth.domain.granter.token;
 
+import com.framework.cloud.oauth.common.enums.GrantType;
 import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
 import com.framework.cloud.oauth.domain.granter.AbstractAuthorizationGranter;
-import com.framework.cloud.platform.common.enums.GrantType;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
@@ -18,7 +18,7 @@ public class AuthorizationCredentialsGranter extends AbstractAuthorizationGrante
     private boolean allowRefresh = false;
 
     public AuthorizationCredentialsGranter(AuthorizationTenantService authorizationTenantService, OAuth2RequestFactory requestFactory) {
-        super(GrantType.CLIENT_CREDENTIALS.getGrant(), requestFactory, authorizationTenantService);
+        super(GrantType.CLIENT_CREDENTIALS.name().toLowerCase(), requestFactory, authorizationTenantService);
     }
 
     @Override

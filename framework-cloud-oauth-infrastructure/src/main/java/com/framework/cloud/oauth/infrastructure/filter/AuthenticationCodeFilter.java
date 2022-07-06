@@ -80,7 +80,7 @@ public class AuthenticationCodeFilter extends AbstractAuthenticationProcessingFi
                 throw new AuthenticationServiceException(OauthMsg.GRANT_TYPE.getMsg());
             }
             String dataJson = jsonObject.toJSONString();
-            ParameterizedType parameterizedType = FastJsonUtil.makeJavaType(grantType.clz);
+            ParameterizedType parameterizedType = FastJsonUtil.makeJavaType(grantType.getClz());
             switch (grantType) {
                 case APP:
                     authenticationToken = appService.authentication(FastJsonUtil.toJavaObject(dataJson, parameterizedType));

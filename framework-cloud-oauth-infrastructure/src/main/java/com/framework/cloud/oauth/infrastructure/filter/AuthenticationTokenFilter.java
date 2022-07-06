@@ -72,7 +72,7 @@ public class AuthenticationTokenFilter extends AbstractAuthenticationProcessingF
                 throw new AuthenticationServiceException(OauthMsg.GRANT_TYPE.getMsg());
             }
             String dataJson = objectMapper.writeValueAsString(fromData);
-            ParameterizedType parameterizedType = FastJsonUtil.makeJavaType(grantType.clz);
+            ParameterizedType parameterizedType = FastJsonUtil.makeJavaType(grantType.getClz());
             switch (grantType) {
                 case IMPLICIT:
                     authenticationToken = implicitService.authentication(FastJsonUtil.toJavaObject(dataJson, parameterizedType));

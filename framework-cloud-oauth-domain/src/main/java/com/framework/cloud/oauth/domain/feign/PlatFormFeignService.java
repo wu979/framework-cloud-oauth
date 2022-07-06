@@ -1,9 +1,9 @@
 package com.framework.cloud.oauth.domain.feign;
 
 import com.framework.cloud.common.result.Result;
-import com.framework.cloud.platform.common.dto.OauthCodeDTO;
-import com.framework.cloud.platform.common.vo.OauthCodeInfoVO;
-import com.framework.cloud.platform.common.vo.TenantVO;
+import com.framework.cloud.oauth.common.rpc.dto.OauthCodeDTO;
+import com.framework.cloud.oauth.common.rpc.vo.OauthCodeInfoVO;
+import com.framework.cloud.oauth.common.rpc.vo.TenantVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

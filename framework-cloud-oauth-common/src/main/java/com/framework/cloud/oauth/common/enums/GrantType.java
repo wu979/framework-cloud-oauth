@@ -61,7 +61,7 @@ public enum GrantType {
      */
     REFRESH_TOKEN(RefreshDTO.class);
 
-    public Class<? extends AbstractAuthorizationDTO> clz;
+    private final Class<? extends AbstractAuthorizationDTO> clz;
 
     public static GrantType grantType(String type) {
         if (StringUtils.isBlank(type)) {
@@ -75,4 +75,5 @@ public enum GrantType {
         }
         return null;
     }
+
 }

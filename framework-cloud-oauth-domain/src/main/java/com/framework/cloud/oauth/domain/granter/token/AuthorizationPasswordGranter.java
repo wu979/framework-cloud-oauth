@@ -3,12 +3,12 @@ package com.framework.cloud.oauth.domain.granter.token;
 import com.framework.cloud.core.spring.ApplicationContextHolder;
 import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.base.BaseTenant;
+import com.framework.cloud.oauth.common.enums.GrantType;
 import com.framework.cloud.oauth.common.model.authentication.UsernameAuthenticationModel;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
 import com.framework.cloud.oauth.domain.granter.AbstractAuthorizationGranter;
 import com.framework.cloud.oauth.domain.utils.MsgUtil;
-import com.framework.cloud.platform.common.enums.GrantType;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -30,7 +30,7 @@ import java.util.Map;
 public class AuthorizationPasswordGranter extends AbstractAuthorizationGranter {
 
     public AuthorizationPasswordGranter(AuthorizationTenantService authorizationTenantService, OAuth2RequestFactory requestFactory) {
-        super(GrantType.PASSWORD.getGrant(), requestFactory, authorizationTenantService);
+        super(GrantType.PASSWORD.name().toLowerCase(), requestFactory, authorizationTenantService);
     }
 
     @Override

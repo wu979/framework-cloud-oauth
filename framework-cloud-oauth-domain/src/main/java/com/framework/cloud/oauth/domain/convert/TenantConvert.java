@@ -3,7 +3,7 @@ package com.framework.cloud.oauth.domain.convert;
 import cn.hutool.core.collection.CollectionUtil;
 import com.framework.cloud.common.utils.StringUtil;
 import com.framework.cloud.oauth.common.base.BaseTenant;
-import com.framework.cloud.platform.common.vo.TenantVO;
+import com.framework.cloud.oauth.common.rpc.vo.TenantVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

@@ -2,11 +2,11 @@ package com.framework.cloud.oauth.domain.granter.token;
 
 import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.base.BaseTenant;
+import com.framework.cloud.oauth.common.enums.GrantType;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
 import com.framework.cloud.oauth.domain.granter.AbstractAuthorizationGranter;
 import com.framework.cloud.oauth.domain.utils.MsgUtil;
-import com.framework.cloud.platform.common.enums.GrantType;
 import org.springframework.security.oauth2.common.exceptions.RedirectMismatchException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
@@ -27,7 +27,7 @@ public class AuthorizationCodeGranter extends AbstractAuthorizationGranter {
     private final AuthorizationCodeServices authorizationCodeServices;
 
     public AuthorizationCodeGranter(AuthorizationCodeServices authorizationCodeServices, AuthorizationTenantService authorizationTenantService, OAuth2RequestFactory requestFactory) {
-        super(GrantType.AUTHORIZATION_CODE.getGrant(), requestFactory, authorizationTenantService);
+        super(GrantType.AUTHORIZATION_CODE.name().toLowerCase(), requestFactory, authorizationTenantService);
         this.authorizationCodeServices = authorizationCodeServices;
     }
 

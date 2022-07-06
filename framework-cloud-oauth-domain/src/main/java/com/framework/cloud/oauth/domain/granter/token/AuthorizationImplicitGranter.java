@@ -1,9 +1,9 @@
 package com.framework.cloud.oauth.domain.granter.token;
 
 import com.framework.cloud.oauth.common.base.BaseTenant;
+import com.framework.cloud.oauth.common.enums.GrantType;
 import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
 import com.framework.cloud.oauth.domain.granter.AbstractAuthorizationGranter;
-import com.framework.cloud.platform.common.enums.GrantType;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +20,7 @@ import org.springframework.security.oauth2.provider.TokenRequest;
 public class AuthorizationImplicitGranter extends AbstractAuthorizationGranter {
 
     public AuthorizationImplicitGranter(AuthorizationTenantService authorizationTenantService, OAuth2RequestFactory requestFactory) {
-        super(GrantType.IMPLICIT.getGrant(), requestFactory, authorizationTenantService);
+        super(GrantType.IMPLICIT.name().toLowerCase(), requestFactory, authorizationTenantService);
     }
 
     @Override

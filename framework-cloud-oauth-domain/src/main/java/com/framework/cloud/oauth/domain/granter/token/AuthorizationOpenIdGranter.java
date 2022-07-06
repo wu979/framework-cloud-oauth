@@ -3,12 +3,12 @@ package com.framework.cloud.oauth.domain.granter.token;
 import com.framework.cloud.core.spring.ApplicationContextHolder;
 import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.base.BaseTenant;
+import com.framework.cloud.oauth.common.enums.GrantType;
 import com.framework.cloud.oauth.common.model.token.OpenIdAuthenticationModel;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
 import com.framework.cloud.oauth.domain.granter.AbstractAuthorizationGranter;
 import com.framework.cloud.oauth.domain.utils.MsgUtil;
-import com.framework.cloud.platform.common.enums.GrantType;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,7 +30,7 @@ import java.util.Map;
 public class AuthorizationOpenIdGranter extends AbstractAuthorizationGranter {
 
     public AuthorizationOpenIdGranter(AuthorizationTenantService authorizationTenantService, OAuth2RequestFactory requestFactory) {
-        super(GrantType.OPEN_ID.getGrant(), requestFactory, authorizationTenantService);
+        super(GrantType.OPEN_ID.name().toLowerCase(), requestFactory, authorizationTenantService);
     }
 
     @Override
