@@ -1,9 +1,9 @@
 package com.framework.cloud.oauth.api.application.configuration;
 
 import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
-import com.framework.cloud.oauth.domain.convert.AuthenticationConverter;
-import com.framework.cloud.oauth.domain.convert.AuthenticationTokenConverter;
-import com.framework.cloud.oauth.domain.convert.UserConvert;
+import com.framework.cloud.oauth.domain.converter.AuthenticationConverter;
+import com.framework.cloud.oauth.domain.converter.AuthenticationTokenConverter;
+import com.framework.cloud.oauth.domain.converter.UserConverter;
 import com.framework.cloud.oauth.domain.granter.token.*;
 import com.framework.cloud.oauth.domain.properties.OauthProperties;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -37,7 +37,7 @@ import java.util.List;
 public class AuthorizationTokenConfiguration implements Ordered {
 
     @Resource
-    private UserConvert userConvert;
+    private UserConverter userConverter;
     @Resource
     private OauthProperties oauthProperties;
     @Resource
@@ -70,8 +70,8 @@ public class AuthorizationTokenConfiguration implements Ordered {
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         DefaultAccessTokenConverter defaultConverter = new DefaultAccessTokenConverter();
-        defaultConverter.setUserTokenConverter(new AuthenticationConverter(userConvert));
-        JwtAccessTokenConverter converter = new AuthenticationTokenConverter(userConvert);
+        defaultConverter.setUserTokenConverter(new AuthenticationConverter(userConverter));
+        JwtAccessTokenConverter converter = new AuthenticationTokenConverter(userConverter);
         converter.setKeyPair(keyPair());
         converter.setAccessTokenConverter(defaultConverter);
         return converter;

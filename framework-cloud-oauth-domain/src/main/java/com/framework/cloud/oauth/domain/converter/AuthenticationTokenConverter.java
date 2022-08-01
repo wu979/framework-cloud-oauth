@@ -1,4 +1,4 @@
-package com.framework.cloud.oauth.domain.convert;
+package com.framework.cloud.oauth.domain.converter;
 
 import com.framework.cloud.common.utils.FastJsonUtil;
 import com.framework.cloud.holder.constant.HeaderConstant;
@@ -16,7 +16,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 @RequiredArgsConstructor
 public class AuthenticationTokenConverter extends JwtAccessTokenConverter {
 
-    private final UserConvert userConvert;
+    private final UserConverter userConverter;
 
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
@@ -25,7 +25,7 @@ public class AuthenticationTokenConverter extends JwtAccessTokenConverter {
         LoginUser loginUser = null;
         if (principal instanceof BaseUserDetail) {
             BaseUserDetail baseUserDetail = (BaseUserDetail) principal;
-            loginUser = userConvert.baseToLogin(baseUserDetail.getBaseUser());
+            loginUser = userConverter.baseToLogin(baseUserDetail.getBaseUser());
         }
         if (principal instanceof LoginUser) {
             loginUser = (LoginUser) principal;
@@ -36,5 +36,4 @@ public class AuthenticationTokenConverter extends JwtAccessTokenConverter {
         }
         return super.enhance(token, authentication);
     }
-
 }

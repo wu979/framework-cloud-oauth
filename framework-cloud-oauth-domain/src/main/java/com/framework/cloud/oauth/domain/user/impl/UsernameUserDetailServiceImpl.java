@@ -6,7 +6,7 @@ import com.framework.cloud.oauth.common.base.BaseUser;
 import com.framework.cloud.oauth.common.base.BaseUserDetail;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.common.rpc.vo.UserIdentifierVO;
-import com.framework.cloud.oauth.domain.convert.UserConvert;
+import com.framework.cloud.oauth.domain.converter.UserConverter;
 import com.framework.cloud.oauth.domain.feign.UserFeignService;
 import com.framework.cloud.oauth.domain.user.AuthorizationUserDetailsService;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,7 +28,7 @@ public class UsernameUserDetailServiceImpl implements AuthorizationUserDetailsSe
     private UserFeignService userFeignService;
 
     @Resource
-    private UserConvert userConvert;
+    private UserConverter userConverter;
 
     @Override
     public UserDetails loadUserByUsername(String username, Long tenantId) throws UsernameNotFoundException {
@@ -42,7 +42,7 @@ public class UsernameUserDetailServiceImpl implements AuthorizationUserDetailsSe
             throw new UsernameNotFoundException(result.getMsg());
         }
         List<String> roleList = listResult.getData();
-        BaseUser baseUser = userConvert.voToBase(data);
+        BaseUser baseUser = userConverter.voToBase(data);
         List<SimpleGrantedAuthority> authorityList = roleList.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
         baseUser.setIsAdmin(roleList.contains(GlobalRoleType.ROLE_ADMIN.name()));
         User user = new User(data.getIdentifier(), data.getCredential(), new ArrayList<>(authorityList));

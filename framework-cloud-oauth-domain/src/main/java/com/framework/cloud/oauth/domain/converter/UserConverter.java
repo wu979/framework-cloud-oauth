@@ -1,4 +1,4 @@
-package com.framework.cloud.oauth.domain.convert;
+package com.framework.cloud.oauth.domain.converter;
 
 import com.framework.cloud.holder.model.LoginUser;
 import com.framework.cloud.oauth.common.base.BaseUser;
@@ -11,7 +11,7 @@ import org.mapstruct.Mapper;
  * @author wusiwei
  */
 @Mapper(componentModel = "spring")
-public interface UserConvert {
+public interface UserConverter {
 
     BaseUser voToBase(UserIdentifierVO vo);
 

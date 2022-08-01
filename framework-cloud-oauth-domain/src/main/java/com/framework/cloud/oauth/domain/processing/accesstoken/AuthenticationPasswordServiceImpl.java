@@ -21,10 +21,10 @@ public class AuthenticationPasswordServiceImpl extends AbstractAccessTokenServic
     @Override
     protected String validParam(BaseTenant baseTenant, PasswordDTO param) {
         if (StringUtils.isBlank(param.getUsername())) {
-            return MsgUtil.format(OauthMsg.USERNAME, param.getUsername());
+            return MsgUtil.format(OauthMsg.USERNAME_PASSWORD);
         }
         if (StringUtils.isBlank(param.getPassword())) {
-            return MsgUtil.format(OauthMsg.PASSWORD, param.getPassword());
+            return MsgUtil.format(OauthMsg.USERNAME_PASSWORD);
         }
         return null;
     }

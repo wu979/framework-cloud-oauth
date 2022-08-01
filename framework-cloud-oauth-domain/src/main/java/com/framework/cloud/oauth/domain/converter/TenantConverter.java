@@ -1,4 +1,4 @@
-package com.framework.cloud.oauth.domain.convert;
+package com.framework.cloud.oauth.domain.converter;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.framework.cloud.common.utils.StringUtil;
@@ -23,7 +23,7 @@ import java.util.stream.Stream;
  * @author wusiwei
  */
 @Mapper(componentModel = "spring")
-public interface TenantConvert {
+public interface TenantConverter {
 
     @Mappings(value = {
             @Mapping(target = "clientId", source = "code"),

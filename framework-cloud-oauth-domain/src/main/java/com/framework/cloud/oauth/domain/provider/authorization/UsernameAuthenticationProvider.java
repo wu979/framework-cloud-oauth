@@ -5,7 +5,6 @@ import com.framework.cloud.oauth.common.model.authentication.UsernameAuthenticat
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.domain.provider.AbstractAuthenticationProvider;
 import com.framework.cloud.oauth.domain.user.AuthorizationUserDetailsService;
-import com.framework.cloud.oauth.domain.utils.MsgUtil;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -27,13 +26,13 @@ public class UsernameAuthenticationProvider extends AbstractAuthenticationProvid
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, Authentication authentication) throws AuthenticationException {
         if (authentication.getPrincipal() == null) {
-            throw new BadCredentialsException(MsgUtil.format(OauthMsg.USERNAME, authentication.getPrincipal()));
+            throw new BadCredentialsException(OauthMsg.USERNAME_PASSWORD.getMsg());
         }
         if (authentication.getCredentials() == null) {
-            throw new BadCredentialsException(MsgUtil.format(OauthMsg.PASSWORD, authentication.getCredentials()));
+            throw new BadCredentialsException(OauthMsg.USERNAME_PASSWORD.getMsg());
         }
         if (!userDetails.getPassword().equals(MD5Util.encode(authentication.getCredentials().toString()))) {
-            throw new BadCredentialsException(MsgUtil.format(OauthMsg.PASSWORD, authentication.getCredentials()));
+            throw new BadCredentialsException(OauthMsg.USERNAME_PASSWORD.getMsg());
         }
     }
 

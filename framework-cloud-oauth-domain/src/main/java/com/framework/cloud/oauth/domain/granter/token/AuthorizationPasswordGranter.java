@@ -8,7 +8,6 @@ import com.framework.cloud.oauth.common.model.authentication.UsernameAuthenticat
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
 import com.framework.cloud.oauth.domain.granter.AbstractAuthorizationGranter;
-import com.framework.cloud.oauth.domain.utils.MsgUtil;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -45,10 +44,10 @@ public class AuthorizationPasswordGranter extends AbstractAuthorizationGranter {
         try {
             userAuth = ApplicationContextHolder.getBean(AuthenticationManager.class).authenticate(userAuth);
         } catch (Exception e) {
-            throw new InvalidGrantException(OauthMsg.ERROR.getMsg());
+            throw new InvalidGrantException(e.getMessage());
         }
         if (userAuth == null || !userAuth.isAuthenticated()) {
-            throw new InvalidGrantException(MsgUtil.format(OauthMsg.USERNAME, username));
+            throw new InvalidGrantException(OauthMsg.USERNAME_PASSWORD.getMsg());
         }
         return new OAuth2Authentication(getRequestFactory().createOAuth2Request(baseTenant, tokenRequest), userAuth);
     }

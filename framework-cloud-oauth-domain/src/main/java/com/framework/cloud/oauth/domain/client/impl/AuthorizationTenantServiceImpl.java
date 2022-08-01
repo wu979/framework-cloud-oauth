@@ -6,7 +6,7 @@ import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.common.rpc.vo.TenantVO;
 import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
-import com.framework.cloud.oauth.domain.convert.TenantConvert;
+import com.framework.cloud.oauth.domain.converter.TenantConverter;
 import com.framework.cloud.oauth.domain.feign.PlatFormFeignService;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
@@ -23,7 +23,7 @@ import javax.annotation.Resource;
 public class AuthorizationTenantServiceImpl implements AuthorizationTenantService {
 
     @Resource
-    private TenantConvert tenantConvert;
+    private TenantConverter tenantConverter;
 
     @Resource
     private PlatFormFeignService platFormFeignService;
@@ -43,6 +43,6 @@ public class AuthorizationTenantServiceImpl implements AuthorizationTenantServic
         if (ObjectUtil.isNull(tenantVO)) {
             throw new InternalAuthenticationServiceException(OauthMsg.TENANT_NOT_FOUND.getMsg());
         }
-        return tenantConvert.infoToBase(tenantVO);
+        return tenantConverter.infoToBase(tenantVO);
     }
 }

@@ -7,7 +7,6 @@ import com.framework.cloud.oauth.common.model.token.PasswordAuthenticationModel;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
 import com.framework.cloud.oauth.domain.provider.AbstractAccessTokenProvider;
-import com.framework.cloud.oauth.domain.utils.MsgUtil;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -31,10 +30,10 @@ public class PasswordAuthenticationProvider extends AbstractAccessTokenProvider 
     @Override
     protected Authentication additionalAuthenticationChecks(Authentication authentication) throws AuthenticationException {
         if (authentication.getPrincipal() == null) {
-            throw new BadCredentialsException(MsgUtil.format(OauthMsg.USERNAME, authentication.getPrincipal()));
+            throw new BadCredentialsException(OauthMsg.USERNAME_PASSWORD.getMsg());
         }
         if (authentication.getCredentials() == null) {
-            throw new BadCredentialsException(MsgUtil.format(OauthMsg.PASSWORD, authentication.getPrincipal()));
+            throw new BadCredentialsException(OauthMsg.USERNAME_PASSWORD.getMsg());
         }
         return authentication;
     }
