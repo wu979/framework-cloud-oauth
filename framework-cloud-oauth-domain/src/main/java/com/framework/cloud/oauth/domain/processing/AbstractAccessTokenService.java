@@ -6,7 +6,6 @@ import com.framework.cloud.common.utils.MD5Util;
 import com.framework.cloud.common.utils.StringUtil;
 import com.framework.cloud.holder.constant.CacheConstant;
 import com.framework.cloud.oauth.common.base.BaseTenant;
-import com.framework.cloud.oauth.common.dto.AbstractAuthorizationDTO;
 import com.framework.cloud.oauth.common.dto.token.AccessTokenDTO;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.domain.AuthenticationService;
@@ -24,7 +23,7 @@ import javax.annotation.Resource;
  *
  * @author wusiwei
  */
-public abstract class AbstractAccessTokenService<R extends AbstractAuthenticationToken, T extends AbstractAuthorizationDTO> implements AuthenticationService<R, T> {
+public abstract class AbstractAccessTokenService<R extends AbstractAuthenticationToken, T extends AccessTokenDTO> implements AuthenticationService<R, T> {
 
     @Resource
     private RedisCache redisCache;
@@ -35,9 +34,8 @@ public abstract class AbstractAccessTokenService<R extends AbstractAuthenticatio
 
     @Override
     public R authentication(T param) {
-        AccessTokenDTO authorization = (AccessTokenDTO) param;
-        String clientId = authorization.getClientId();
-        String clientSecret = authorization.getClientSecret();
+        String clientId = param.getClientId();
+        String clientSecret = param.getClientSecret();
         if (StringUtils.isBlank(clientId)) {
             throw new AuthenticationServiceException(MsgUtil.format(OauthMsg.CLIENT_ID, clientId));
         }
@@ -48,8 +46,8 @@ public abstract class AbstractAccessTokenService<R extends AbstractAuthenticatio
         if (!baseTenant.getClientSecret().equals(MD5Util.encode(clientSecret))) {
             throw new AuthenticationServiceException(MsgUtil.format(OauthMsg.CLIENT_SECRET, clientSecret));
         }
-        if (!baseTenant.getAuthorizedGrantTypes().contains(authorization.getGrantType())) {
-            throw new AuthenticationServiceException(MsgUtil.format(OauthMsg.GRANT_TYPE, authorization.getGrantType()));
+        if (!baseTenant.getAuthorizedGrantTypes().contains(param.getGrantType())) {
+            throw new AuthenticationServiceException(MsgUtil.format(OauthMsg.GRANT_TYPE, param.getGrantType()));
         }
         boolean check = checkCount(baseTenant.getId());
         if (!check) {

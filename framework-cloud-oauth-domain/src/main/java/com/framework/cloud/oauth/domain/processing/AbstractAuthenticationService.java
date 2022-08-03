@@ -2,7 +2,6 @@ package com.framework.cloud.oauth.domain.processing;
 
 import com.framework.cloud.common.utils.StringUtil;
 import com.framework.cloud.oauth.common.base.BaseTenant;
-import com.framework.cloud.oauth.common.dto.AbstractAuthorizationDTO;
 import com.framework.cloud.oauth.common.dto.authentication.AuthorizationDTO;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.domain.AuthenticationService;
@@ -18,17 +17,16 @@ import javax.annotation.Resource;
  *
  * @author wusiwei
  */
-public abstract class AbstractAuthenticationService<R extends AbstractAuthenticationToken, T extends AbstractAuthorizationDTO> implements AuthenticationService<R, T> {
+public abstract class AbstractAuthenticationService<R extends AbstractAuthenticationToken, T extends AuthorizationDTO> implements AuthenticationService<R, T> {
 
     @Resource
     private AuthorizationTenantService authorizationTenantService;
 
     @Override
     public R authentication(T param) {
-        AuthorizationDTO authorization = (AuthorizationDTO) param;
-        BaseTenant baseTenant = authorizationTenantService.loadTenantByCode(authorization.getAppKey());
-        if (!baseTenant.getRegisteredRedirectUri().contains(authorization.getRedirectUri())) {
-            throw new InternalAuthenticationServiceException(MsgUtil.format(OauthMsg.REDIRECT_URI, authorization.getRedirectUri()));
+        BaseTenant baseTenant = authorizationTenantService.loadTenantByCode(param.getAppKey());
+        if (!baseTenant.getRegisteredRedirectUri().contains(param.getRedirectUri())) {
+            throw new InternalAuthenticationServiceException(MsgUtil.format(OauthMsg.REDIRECT_URI, param.getRedirectUri()));
         }
         String errorMsg = validParam(param);
         if (StringUtil.isNotEmpty(errorMsg)) {

@@ -41,7 +41,8 @@ public enum OauthMsg {
     EMAIL("Incorrect email [{0}]"),
     VALID_CODE("Incorrect code [{0}]"),
     PHONE("Incorrect phone [{0}]"),
-    REFRESH_TOKEN_EXPIRE("The token has expired, please authorization again"),
+    TOKEN_INVALID("The token invalid, please authorization again"),
+    TOKEN_EXPIRE("The token expired, please authorization again"),
     ;
 
     private final String msg;

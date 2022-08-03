@@ -3,6 +3,7 @@ package com.framework.cloud.oauth.domain.code;
 import cn.hutool.core.util.ObjectUtil;
 import com.framework.cloud.common.result.Result;
 import com.framework.cloud.holder.constant.OauthConstant;
+import com.framework.cloud.oauth.common.model.AbstractAuthenticationModel;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
 import com.framework.cloud.oauth.common.rpc.dto.OauthCodeDTO;
 import com.framework.cloud.oauth.common.rpc.vo.OauthCodeInfoVO;
@@ -32,8 +33,9 @@ public class AuthorizationCodeService extends RandomValueAuthorizationCodeServic
 
     @Override
     protected void store(String code, OAuth2Authentication authentication) {
+        AbstractAuthenticationModel authenticationToken = (AbstractAuthenticationModel) authentication.getUserAuthentication();
         byte[] serialize = SerializationUtils.serialize(authentication);
-        Result<Boolean> result = platFormFeignService.save(new OauthCodeDTO(code, serialize));
+        Result<Boolean> result = platFormFeignService.save(new OauthCodeDTO(code, serialize, authenticationToken.getTenantId()));
         if (!result.success()) {
             throw new InvalidGrantException(result.getMsg());
         }

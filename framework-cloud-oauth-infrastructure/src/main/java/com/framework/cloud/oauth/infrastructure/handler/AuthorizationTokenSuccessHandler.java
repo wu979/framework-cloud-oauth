@@ -32,10 +32,10 @@ public class AuthorizationTokenSuccessHandler extends SavedRequestAwareAuthentic
             return;
         }
         SuccessAuthenticationModel authenticationModel = (SuccessAuthenticationModel) authentication;
-        AuthorizationTokenVO vo = new AuthorizationTokenVO(authenticationModel.getAccessToken(), authenticationModel.getRefreshToken());
-        vo.setExpiresIn(authenticationModel.getExpiresIn());
-        vo.setUserId(authenticationModel.getUserId());
-        vo.setOauthUser(authenticationModel.getOauthUser());
-        success(response, objectMapper, R.success(vo));
+        AuthorizationTokenVO authorizationToken = new AuthorizationTokenVO(authenticationModel.getAccessToken(), authenticationModel.getRefreshToken());
+        authorizationToken.setExpiresIn(authenticationModel.getExpiresIn());
+        authorizationToken.setUserId(authenticationModel.getUserId());
+        authorizationToken.setOauthUser(authenticationModel.getOauthUser());
+        success(response, objectMapper, R.success(authorizationToken));
     }
 }

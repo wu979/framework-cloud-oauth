@@ -48,10 +48,10 @@ public class RefreshAuthenticationProvider extends AbstractAccessTokenProvider {
         String refreshKey = CacheConstant.REFRESH_TOKEN + authentication.getPrincipal();
         AuthenticationCache authenticationCache = redisCache.get(refreshKey, AuthenticationCache.class);
         if (ObjectUtil.isNull(authenticationCache)) {
-            throw new BadCredentialsException(MsgUtil.format(OauthMsg.REFRESH_TOKEN_EXPIRE, authentication.getPrincipal()));
+            throw new BadCredentialsException(MsgUtil.format(OauthMsg.TOKEN_EXPIRE, authentication.getPrincipal()));
         }
         if (authenticationCache.getAccessTokenValidity() < GlobalNumber.ZERO.getIntValue()) {
-            throw new BadCredentialsException(MsgUtil.format(OauthMsg.REFRESH_TOKEN_EXPIRE, authentication.getPrincipal()));
+            throw new BadCredentialsException(MsgUtil.format(OauthMsg.TOKEN_EXPIRE, authentication.getPrincipal()));
         }
         authenticationToken.setOldAccessTokenId(authenticationCache.getAccessTokenId());
         authenticationToken.setOldRefreshTokenId(authenticationCache.getRefreshTokenId());

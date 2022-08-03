@@ -5,10 +5,9 @@ import com.framework.cloud.common.result.Result;
 import com.framework.cloud.oauth.domain.OAuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -28,5 +27,11 @@ public class OAuthController {
     @PostMapping("/rsa/publicKey")
     public Result<String> getPublicKey() {
         return R.success(oAuthService.publicKey());
+    }
+
+    @ApiOperation(value = "令牌检查")
+    @GetMapping(value = "/check_token")
+    public Result<Boolean> checkToken(@ApiParam("令牌") @RequestParam("token") String token) {
+        return R.success(oAuthService.checkToken(token));
     }
 }

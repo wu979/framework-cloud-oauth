@@ -19,6 +19,8 @@ import org.apache.commons.lang3.StringUtils;
 @AllArgsConstructor
 public enum GrantType {
 
+    /* ---------------------------  授权码 --------------------------- */
+
     /**
      * 账号密码
      */
@@ -35,6 +37,8 @@ public enum GrantType {
      * 三方软件
      */
     APP(AppDTO.class),
+
+    /* ---------------------------  令牌 --------------------------- */
 
     /**
      * 授权码

@@ -21,4 +21,6 @@ public class OauthCodeDTO {
     @ApiModelProperty(value = "授权用户信息")
     private byte[] authentication;
 
+    @ApiModelProperty(value = "租户")
+    private Long tenantId;
 }
