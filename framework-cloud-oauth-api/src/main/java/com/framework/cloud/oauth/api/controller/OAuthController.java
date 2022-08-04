@@ -34,4 +34,5 @@ public class OAuthController {
     public Result<Boolean> checkToken(@ApiParam("令牌") @RequestParam("token") String token) {
         return R.success(oAuthService.checkToken(token));
     }
+
 }

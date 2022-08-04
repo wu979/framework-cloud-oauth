@@ -18,7 +18,11 @@
             <groupId>com.framework.cloud</groupId>
             <artifactId>common-framework-cloud-starter</artifactId>
             <version>${common.framework.cloud.starter.version}</version>
-            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.framework.cloud</groupId>
+            <artifactId>holder-framework-cloud-starter</artifactId>
+            <version>${holder.framework.cloud.starter.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>

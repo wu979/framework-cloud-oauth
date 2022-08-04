@@ -18,7 +18,6 @@
             <groupId>com.framework.cloud</groupId>
             <artifactId>framework-cloud-oauth-common</artifactId>
             <version>${version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.framework.cloud</groupId>
