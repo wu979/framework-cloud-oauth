@@ -4,13 +4,13 @@ import cn.hutool.core.util.ObjectUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.framework.cloud.common.utils.FastJsonUtil;
 import com.framework.cloud.holder.constant.OauthConstant;
-import com.framework.cloud.oauth.common.dto.token.*;
+import com.framework.cloud.oauth.common.dto.token.AccessTokenDTO;
 import com.framework.cloud.oauth.common.enums.GrantType;
 import com.framework.cloud.oauth.common.model.AbstractAccessTokenModel;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
-import com.framework.cloud.oauth.domain.AuthenticationService;
 import com.framework.cloud.oauth.domain.provider.AbstractAccessTokenProvider;
 import com.framework.cloud.oauth.domain.utils.HttpRequestUtil;
+import com.framework.cloud.oauth.infrastructure.strategy.AuthenticationStrategy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -22,7 +22,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 
 /**
@@ -36,22 +35,7 @@ import java.util.Map;
 public class AuthenticationTokenFilter extends AbstractAuthenticationProcessingFilter {
 
     @Resource
-    private AuthenticationService<AbstractAccessTokenModel, CodeDTO> codeService;
-
-    @Resource
-    private AuthenticationService<AbstractAccessTokenModel, CredentialsDTO> credentialsService;
-
-    @Resource
-    private AuthenticationService<AbstractAccessTokenModel, ImplicitDTO> implicitService;
-
-    @Resource
-    private AuthenticationService<AbstractAccessTokenModel, OpenIdDTO> openIdService;
-
-    @Resource
-    private AuthenticationService<AbstractAccessTokenModel, PasswordDTO> passwordService;
-
-    @Resource
-    private AuthenticationService<AbstractAccessTokenModel, RefreshDTO> refreshService;
+    private AuthenticationStrategy<AbstractAccessTokenModel, AccessTokenDTO> authenticationStrategy;
 
     private ObjectMapper objectMapper;
 
@@ -71,31 +55,8 @@ public class AuthenticationTokenFilter extends AbstractAuthenticationProcessingF
             if (ObjectUtil.isNull(grantType)) {
                 throw new AuthenticationServiceException(OauthMsg.GRANT_TYPE.getMsg());
             }
-            String dataJson = objectMapper.writeValueAsString(fromData);
-            ParameterizedType parameterizedType = FastJsonUtil.makeJavaType(grantType.getClz());
-            switch (grantType) {
-                case IMPLICIT:
-                    authenticationToken = implicitService.authentication(FastJsonUtil.toJavaObject(dataJson, parameterizedType));
-                    break;
-                case OPEN_ID:
-                    authenticationToken = openIdService.authentication(FastJsonUtil.toJavaObject(dataJson, parameterizedType));
-                    break;
-                case PASSWORD:
-                    authenticationToken = passwordService.authentication(FastJsonUtil.toJavaObject(dataJson, parameterizedType));
-                    break;
-                case REFRESH_TOKEN:
-                    authenticationToken = refreshService.authentication(FastJsonUtil.toJavaObject(dataJson, parameterizedType));
-                    break;
-                case AUTHORIZATION_CODE:
-                    authenticationToken = codeService.authentication(FastJsonUtil.toJavaObject(dataJson, parameterizedType));
-                    break;
-                case CLIENT_CREDENTIALS:
-                    authenticationToken = credentialsService.authentication(FastJsonUtil.toJavaObject(dataJson, parameterizedType));
-                    break;
-                default:
-                    authenticationToken = null;
-                    break;
-            }
+            authenticationToken = authenticationStrategy.strategy(grantType)
+                    .authentication(FastJsonUtil.toJavaObject(objectMapper.writeValueAsString(fromData), FastJsonUtil.makeJavaType(grantType.getClz())));
             if (ObjectUtil.isNull(authenticationToken)) {
                 throw new AuthenticationServiceException(OauthMsg.ERROR.getMsg());
             }
