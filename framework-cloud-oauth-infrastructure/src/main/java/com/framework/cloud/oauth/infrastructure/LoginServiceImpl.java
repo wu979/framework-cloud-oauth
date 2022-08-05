@@ -1,8 +1,6 @@
 package com.framework.cloud.oauth.infrastructure;
 
 import com.framework.cloud.cache.cache.RedisCache;
-import com.framework.cloud.common.utils.FastJsonUtil;
-import com.framework.cloud.common.utils.StringUtil;
 import com.framework.cloud.holder.constant.CacheConstant;
 import com.framework.cloud.holder.constant.HeaderConstant;
 import com.framework.cloud.holder.model.LoginTenant;
@@ -18,7 +16,6 @@ import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,19 +45,18 @@ public class LoginServiceImpl implements LoginService {
         if (oAuth2AccessToken.isExpired()) {
             return null;
         }
-        Map<String, Object> additionalInformation = oAuth2AccessToken.getAdditionalInformation();
-        String userJson = String.valueOf(additionalInformation.get(HeaderConstant.X_USER_HEADER));
-        if (StringUtil.isBlank(userJson)) {
-            return null;
-        }
-        LoginUser loginUser = FastJsonUtil.toJavaObject(userJson, LoginUser.class);
-        if (null == loginUser) {
-            return null;
-        }
         OAuth2Authentication oauth2Authentication = tokenStore.readAuthentication(oAuth2AccessToken);
+        if (null == oauth2Authentication) {
+            return null;
+        }
+        Object principal = oauth2Authentication.getPrincipal();
+        if (!(principal instanceof LoginUser)) {
+            return null;
+        }
+        LoginUser loginUser = (LoginUser) principal;
+        Set<String> roleList = oauth2Authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
         OAuth2Request oAuth2Request = oauth2Authentication.getOAuth2Request();
         LoginTenant loginTenant = new LoginTenant(loginUser.getId(), oAuth2Request.getClientId());
-        Set<String> roleList = oauth2Authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
         return new AuthorizationLoginVO(loginUser, loginTenant, roleList);
     }
 }
