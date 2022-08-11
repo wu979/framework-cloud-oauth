@@ -56,7 +56,7 @@ public class LoginServiceImpl implements LoginService {
         LoginUser loginUser = (LoginUser) principal;
         Set<String> roleList = oauth2Authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
         OAuth2Request oAuth2Request = oauth2Authentication.getOAuth2Request();
-        LoginTenant loginTenant = new LoginTenant(loginUser.getId(), oAuth2Request.getClientId());
+        LoginTenant loginTenant = new LoginTenant(loginUser.getTenantId(), oAuth2Request.getClientId());
         return new AuthorizationLoginVO(loginUser, loginTenant, roleList);
     }
 }
