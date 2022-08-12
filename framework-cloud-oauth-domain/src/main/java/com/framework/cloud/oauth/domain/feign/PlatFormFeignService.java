@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  *
  * @author wusiwei
  */
-@FeignClient(contextId = "platFormFeignService", value = "framework-cloud-platform-api", decode404 = true)
+@FeignClient(contextId = "platFormFeignService", value = "${client.platform}", decode404 = true)
 public interface PlatFormFeignService {
 
     @GetMapping(value = "/tenant/{code}/info/code")

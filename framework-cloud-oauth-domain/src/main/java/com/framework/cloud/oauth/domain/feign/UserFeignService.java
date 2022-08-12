@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author wusiwei
  */
-@FeignClient(contextId = "userFeignService", value = "framework-cloud-user-api", decode404 = true)
+@FeignClient(contextId = "userFeignService", value = "${client.user}", decode404 = true)
 public interface UserFeignService {
 
     @GetMapping(value = "/user/{tenantId}/{identifier}/user")
