@@ -190,7 +190,7 @@ public abstract class AbstractAccessTokenProvider implements AuthenticationProvi
             String accessRefreshKey = CacheConstant.ACCESS_REFRESH + accessTokenId;
             //缓存令牌
             if (accessValidity < GlobalNumber.ZERO.getIntValue()) {
-                redisCache.put(accessKey, accessKey, -1);
+                redisCache.put(accessKey, accessToken, -1);
                 if (StringUtils.isNotBlank(refreshTokenId)) {
                     redisCache.put(refreshKey, authenticationCache, -1);
                     redisCache.put(accessRefreshKey, refreshTokenId, -1);
