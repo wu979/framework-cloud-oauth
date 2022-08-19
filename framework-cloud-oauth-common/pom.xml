@@ -25,6 +25,11 @@
             <version>${holder.framework.cloud.starter.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.framework.cloud</groupId>
+            <artifactId>enums-framework-cloud-starter</artifactId>
+            <version>${enums.framework.cloud.starter.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>
         </dependency>
