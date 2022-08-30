@@ -19,6 +19,7 @@ import com.framework.cloud.oauth.infrastructure.logout.AuthorizationLogoutSucces
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -48,6 +49,7 @@ import java.util.List;
 /**
  * @author wusiwei
  */
+@RefreshScope
 @Configuration
 @EnableWebSecurity
 @AutoConfigureAfter(AuthorizationAutoConfiguration.class)
@@ -80,6 +82,7 @@ public class AuthorizationSecurityConfiguration implements Ordered {
     }
 
     @Bean
+    @RefreshScope
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf().disable()
@@ -127,6 +130,7 @@ public class AuthorizationSecurityConfiguration implements Ordered {
     }
 
     @Bean
+    @RefreshScope
     protected CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration(oauthProperties.getUrl().getCorsPattern(), new CorsConfiguration().applyPermitDefaultValues());
