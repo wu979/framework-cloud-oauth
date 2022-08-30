@@ -14,6 +14,7 @@ public interface OAuthService {
 
     /**
      * 检查令牌
+     *
      * @param token 令牌
      * @return bool
      */
