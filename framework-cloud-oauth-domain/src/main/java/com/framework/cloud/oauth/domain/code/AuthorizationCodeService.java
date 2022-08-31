@@ -2,6 +2,7 @@ package com.framework.cloud.oauth.domain.code;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.framework.cloud.common.result.Result;
+import com.framework.cloud.common.utils.LocalDateUtil;
 import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.model.AbstractAuthenticationModel;
 import com.framework.cloud.oauth.common.msg.OauthMsg;
@@ -15,6 +16,8 @@ import org.springframework.security.oauth2.common.util.RandomValueStringGenerato
 import org.springframework.security.oauth2.common.util.SerializationUtils;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
+
+import java.time.LocalDateTime;
 
 /**
  * 授权码生成
@@ -53,6 +56,10 @@ public class AuthorizationCodeService extends RandomValueAuthorizationCodeServic
         OauthCodeInfoVO oauthCodeInfoVO = result.getData();
         if (ObjectUtil.isNull(oauthCodeInfoVO)) {
             throw new InvalidGrantException(MsgUtil.format(OauthMsg.AUTHORIZATION_CODE, code));
+        }
+        boolean after = LocalDateUtil.isBefore(LocalDateTime.now(), oauthCodeInfoVO.getExpiresTime());
+        if (!after) {
+            throw new InvalidGrantException(OauthMsg.CODE_EXPIRE.getMsg());
         }
         try {
             byte[] bytes = oauthCodeInfoVO.getAuthentication();

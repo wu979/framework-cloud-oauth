@@ -43,6 +43,7 @@ public enum OauthMsg {
     PHONE("Incorrect phone [{0}]"),
     TOKEN_INVALID("The token invalid, please authorization again"),
     TOKEN_EXPIRE("The token expired, please authorization again"),
+    CODE_EXPIRE("The code is used a second time, please authorization again"),
     ;
 
     private final String msg;
