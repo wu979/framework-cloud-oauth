@@ -40,6 +40,11 @@
             <version>${cache.framework.cloud.starter.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.framework.cloud</groupId>
+            <artifactId>event-framework-cloud-starter</artifactId>
+            <version>${event.framework.cloud.starter.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
