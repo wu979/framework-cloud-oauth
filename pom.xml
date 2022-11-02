@@ -18,6 +18,7 @@
         <holder.framework.cloud.starter.version>1.0.0</holder.framework.cloud.starter.version>
         <enums.framework.cloud.starter.version>1.0.0</enums.framework.cloud.starter.version>
         <event.framework.cloud.starter.version>1.0.0</event.framework.cloud.starter.version>
+        <logging.framework.cloud.starter.version>1.0.0</logging.framework.cloud.starter.version>
     </properties>
 
     <modules>
