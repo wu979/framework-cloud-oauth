@@ -22,6 +22,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,6 +37,7 @@ import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.TokenGranter;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -49,7 +51,6 @@ import java.util.List;
 /**
  * @author wusiwei
  */
-@RefreshScope
 @Configuration
 @EnableWebSecurity
 @AutoConfigureAfter(AuthorizationAutoConfiguration.class)
@@ -82,8 +83,8 @@ public class AuthorizationSecurityConfiguration implements Ordered {
     }
 
     @Bean
-    @RefreshScope
-    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @RefreshScope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
@@ -94,8 +95,7 @@ public class AuthorizationSecurityConfiguration implements Ordered {
                 .addFilterAt(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests(authorize -> authorize
                         .antMatchers(oauthProperties.getUrl().getIgnoringUrl().toArray(new String[0])).permitAll()
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
                 .logout().logoutUrl(oauthProperties.getUrl().getLogoutUrl()).and()
                 .logout().addLogoutHandler(new AuthorizationLogoutHandler(redisCache)).and()
                 .logout().logoutSuccessHandler(new AuthorizationLogoutSuccessHandler(objectMapper)).and()
@@ -105,6 +105,7 @@ public class AuthorizationSecurityConfiguration implements Ordered {
     }
 
     @Bean
+    @RefreshScope(proxyMode = ScopedProxyMode.TARGET_CLASS)
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().antMatchers(oauthProperties.getUrl().getIgnoringUrl().toArray(new String[0]));
     }
@@ -130,8 +131,8 @@ public class AuthorizationSecurityConfiguration implements Ordered {
     }
 
     @Bean
-    @RefreshScope
-    protected CorsConfigurationSource corsConfigurationSource() {
+    @RefreshScope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration(oauthProperties.getUrl().getCorsPattern(), new CorsConfiguration().applyPermitDefaultValues());
         return source;
@@ -154,6 +155,6 @@ public class AuthorizationSecurityConfiguration implements Ordered {
 
     @Override
     public int getOrder() {
-        return HIGHEST_PRECEDENCE + 1000;
+        return HIGHEST_PRECEDENCE + 3;
     }
 }
