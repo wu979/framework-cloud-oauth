@@ -1,6 +1,6 @@
 package com.framework.cloud.oauth.domain.granter.token;
 
-import com.framework.cloud.core.spring.ApplicationContextHolder;
+import com.framework.cloud.common.utils.ApplicationContextHolder;
 import com.framework.cloud.holder.constant.OauthConstant;
 import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.common.enums.GrantType;

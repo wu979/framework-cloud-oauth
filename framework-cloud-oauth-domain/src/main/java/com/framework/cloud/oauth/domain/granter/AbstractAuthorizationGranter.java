@@ -1,6 +1,6 @@
 package com.framework.cloud.oauth.domain.granter;
 
-import com.framework.cloud.core.spring.ApplicationContextHolder;
+import com.framework.cloud.common.utils.ApplicationContextHolder;
 import com.framework.cloud.oauth.common.base.BaseTenant;
 import com.framework.cloud.oauth.domain.client.AuthorizationTenantService;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
