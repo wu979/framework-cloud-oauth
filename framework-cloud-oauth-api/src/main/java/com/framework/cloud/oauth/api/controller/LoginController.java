@@ -27,9 +27,9 @@ public class LoginController {
     private LoginService loginService;
 
     @ApiOperation(value = "获取认证信息")
-    @PostMapping("/login")
-    public Result<AuthorizationLoginVO> login(@RequestParam("authorization") String authorization) {
-        return R.success(loginService.login(authorization));
+    @PostMapping("/converter/authorization")
+    public Result<AuthorizationLoginVO> converter(@RequestParam("authorization") String authorization) {
+        return R.success(loginService.converter(authorization));
     }
 
 }

@@ -30,7 +30,7 @@ public class LoginServiceImpl implements LoginService {
     private final RedisCache redisCache;
 
     @Override
-    public AuthorizationLoginVO login(String authorization) {
+    public AuthorizationLoginVO converter(String authorization) {
         String accessToken = redisCache.get(CacheConstant.ACCESS_TOKEN + authorization, String.class);
         if (StringUtils.isBlank(accessToken)) {
             return null;

@@ -13,5 +13,5 @@ public interface LoginService {
      * @param authorization 令牌
      * @return 认证信息
      */
-    AuthorizationLoginVO login(String authorization);
+    AuthorizationLoginVO converter(String authorization);
 }
